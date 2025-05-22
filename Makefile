@@ -16,7 +16,9 @@ LDFLAGS 	:= -lbsd
 # ==== FILES ==== 
 
 SRCS = \
-	ft_printf.c
+	ft_printf.c   	\
+	ft_vfprintf.c	\
+	textutils.c	
 
 OBJS = $(SRCS:.c=.o)
 
@@ -25,7 +27,7 @@ OBJS = $(SRCS:.c=.o)
 all: lib $(NAME)
 
 $(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+	ar rcs $(NAME) $(OBJS) libft/libft.a
 
 %.o: %.c #libft.h
 	@echo $?

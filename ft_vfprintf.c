@@ -6,11 +6,25 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 00:00:15 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/22 14:16:42 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/22 23:21:22 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printfint.h"
+
+static const t_convrs_handler	g_convrs_table[] = {
+{'c', fn_chr},
+{'s', fn_str},
+{'%', fn_prct},
+{'\0', NULL}
+};
+
+// {'p', fn_ptr},
+// {'d', fn_dgt},
+// {'i', fn_int},
+// {'u', fn_uns},
+// {'x', fn_hexl},
+// {'X', fn_hexu},
 
 /*
 Parse Flags:
@@ -113,7 +127,7 @@ static int	parse_fmt_prcis(char const *format, t_format *fmt)
 		i++;
 		while (ft_isdigit(*format))
 		{
-			fmt->precision = fmt->precision * 10 + (format - '0');
+			fmt->precision = fmt->precision * 10 + (*format - '0');
 			format++;
 			i++;
 		}
@@ -140,29 +154,43 @@ static int	parse_formatting_string(char const *format, t_format *fmt)
 	int	i;
 
 	i = 0;
-	i += parse_fmt_flags(&format[i], &fmt);
-	i += parse_fmt_width(&format[i], &fmt);
-	i += parse_fmt_prcis(&format[i], &fmt);
-	if (format[i] == '%')
-		return (i);
-	else if
+	i += parse_fmt_flags(&format[i], fmt);
+	i += parse_fmt_width(&format[i], fmt);
+	i += parse_fmt_prcis(&format[i], fmt);
 	return (i);
 }
 
 /* 
-vfprintf implements the heavy lifting for printf() it finds the printable chars
-from string 'format'. it parses the formatting substrings in 'format':
+vfprintf implements the heavy lifting for printf() it finds the regular chars
+from string 'format'. end writes them to stdout. If it finds a '%' char
+it parses the cuncurrent characters as a formatting substring upto the next occu-
+rance of a % or an alphabetical character. the formatting parameters are stored
+in the struct 'fmt'. 
 
-%[$][flags][width][.precision][length modifier]conversion
+Formatting string structure:
+%[flags][width][.precision]conversion
 
-and handles the actual writing of the data to stdout.
+The % or alpha char that terminates the formatting string signifies a conversion 
+type specifier, the followint conversion are handled by ft_vfprintf():
+
+ %c → Character: prints a single character.
+ %s → String: prints a null-terminated string.
+ %p → Pointer: prints a memory address in hexadecimal format, typically with 0x
+ 	  prefix.
+ %d → Decimal (int): prints a signed decimal integer.
+ %i → Integer: same as %d, prints a signed decimal integer.
+ %u → Unsigned decimal: prints an unsigned decimal integer.
+ %x → Hex lowercase: prints an unsigned number in base 16 using lowercase le-
+      tters (a–f).
+ %X → Hex uppercase: same as %x but with uppercase letters (A–F).
+ %% → Literal percent sign: prints a single %.
 
 */
-int	ft_vfprintf(char const *format, ...)
+int	ft_vfprintf(char const *format, va_list args)
 {
 	t_format	fmt;
 	int			i;
-	char		conv_specs;
+	int			ti;
 
 	i = 0;
 	while (format[i])
@@ -171,6 +199,11 @@ int	ft_vfprintf(char const *format, ...)
 		{
 			fmt = (t_format){0};
 			i += parse_formatting_string(&format[i], &fmt);
+			ti = 0;
+			while (g_convrs_table[ti].specifier
+				&& g_convrs_table[ti].specifier != format[i])
+				ti++;
+			g_convrs_table[ti].handler(args, &fmt);
 		}
 		ft_putchar_fd(format[i], 1);
 		i++;
