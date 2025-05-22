@@ -6,12 +6,11 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 00:00:15 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/22 01:18:12 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/22 14:16:42 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printfint.h"
-
 
 /*
 Parse Flags:
@@ -36,8 +35,8 @@ Returns pointer delta value 'i';
 */
 static int	parse_fmt_flags(char const *format, t_format *fmt)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (*format == '-' || *format == '0' || *format == ' '
 		|| *format == '+' || *format == '#')
@@ -76,8 +75,8 @@ Returns pointer delta value 'i';
 */
 static int	parse_fmt_width(char const *format, t_format *fmt)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (ft_isdigit(*format))
 	{
@@ -105,11 +104,11 @@ Returns pointer delta value 'i';
 */
 static int	parse_fmt_prcis(char const *format, t_format *fmt)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	if (format[i] == '.')
-	{ 
+	{
 		format++;
 		i++;
 		while (ft_isdigit(*format))
@@ -138,16 +137,15 @@ Returns pointer delta value 'i';
 */
 static int	parse_formatting_string(char const *format, t_format *fmt)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	i += parse_fmt_flags(&format[i], &fmt);
 	i += parse_fmt_width(&format[i], &fmt);
 	i += parse_fmt_prcis(&format[i], &fmt);
 	if (format[i] == '%')
 		return (i);
-	else if  
-
+	else if
 	return (i);
 }
 
@@ -173,10 +171,9 @@ int	ft_vfprintf(char const *format, ...)
 		{
 			fmt = (t_format){0};
 			i += parse_formatting_string(&format[i], &fmt);
-
 		}
 		ft_putchar_fd(format[i], 1);
-		i++;		
+		i++;
 	}
 	return (1);
 }
