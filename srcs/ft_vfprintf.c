@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 00:00:15 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/22 23:21:22 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/23 15:37:13 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static const t_convrs_handler	g_convrs_table[] = {
 {'c', fn_chr},
 {'s', fn_str},
-{'%', fn_prct},
 {'\0', NULL}
 };
 
@@ -195,7 +194,9 @@ int	ft_vfprintf(char const *format, va_list args)
 	i = 0;
 	while (format[i])
 	{
-		if (format[i] == '%')
+		if (format[i] == '%' && format[i + 1] == '%')
+			i++;
+		else if (format[i] == '%')
 		{
 			fmt = (t_format){0};
 			i += parse_formatting_string(&format[i], &fmt);
