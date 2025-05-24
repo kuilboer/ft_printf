@@ -6,7 +6,7 @@
 #    By: okuilboe <okuilboe@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/04/25 16:17:43 by okuilboe      #+#    #+#                  #
-#    Updated: 2025/05/23 16:20:41 by okuilboe      ########   odam.nl          #
+#    Updated: 2025/05/24 23:04:37 by okuilboe      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ LIBRARY		= $(LIB_LNK_TGT)/libftprintf.a
 CC 			:= cc
 CFLAGS		:= -Wall -Werror -Wextra
 CPPFLAGS	:= -I. -Ift_printf -Ift_printf/libft
-LDFLAGS 	:= 
+LDFLAGS 	:= -Lft_printf -lftprintf -Lft_printf/libft -lft
 
 # ==== FILES ====
 
@@ -43,7 +43,13 @@ $(LIB_LNK_TGT):
 	@ln -snf $(LIB_SRC_DIR) $(LIB_LNK_TGT) # Create symbolic link to the libft directory
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -L$(LIB_LNK_TGT) -lftprintf -Lft_printf/libft -lft $(LDFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -L$(LIB_LNK_TGT) $(LDFLAGS) -o $(NAME)
+
+relib: $(LIB_LNK_TGT)
+	@$(MAKE) -C $(LIB_LNK_TGT) relib
+
+rmlib: $(LIB_LNK_TGT)
+	@$(MAKE) -C $(LIB_LNK_TGT) rmlib
 
 %.o: %.c
 	@echo $?

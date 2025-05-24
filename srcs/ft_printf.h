@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   printfint.h                                        :+:    :+:            */
+/*   ft_printf.h                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2025/05/20 22:33:10 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/22 23:09:49 by okuilboe      ########   odam.nl         */
+/*   Created: 2025/05/19 20:43:24 by okuilboe      #+#    #+#                 */
+/*   Updated: 2025/05/24 18:22:50 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTFINT_H
+#ifndef FT_PRINTF_H
 
-# define PRINTFINT_H
+# define FT_PRINTF_H
 
+# include <limits.h>
 # include <stdarg.h>
-# include "libft.h"
-# include "libftprintf.h"
+# include <stdio.h>
+#include "ft_printfint.h"
 
-/*
-* definition for struct for temporary storage of formatting parameters
-* found in print string. 
-*/
 typedef struct s_format
 {
 	int		flag_minus;
@@ -54,5 +51,7 @@ int			ft_vfprintf(char const *format, va_list args);
 int	fn_chr(va_list args, t_format *fmt);
 int	fn_str(va_list args, t_format *fmt);
 int	fn_prct(va_list args, t_format *fmt);
+
+int	ft_printf(const char *format, ...);
 
 #endif

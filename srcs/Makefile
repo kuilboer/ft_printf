@@ -11,7 +11,7 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 CC 			:= cc
 CFLAGS		:= -Wall -Werror -Wextra
 CPPFLAGS	:= -I. -Ilibft
-LDFLAGS 	:= -lbsd
+LDFLAGS 	:= 
 
 # ==== FILES ==== 
 
@@ -29,9 +29,9 @@ all: lib $(NAME)
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS) libft/libft.a
 
-%.o: %.c #libft.h
+%.o: %.c
 	@echo $?
-	$(CC) -c -g -O0 $(CPPFLAGS) $(CFLAGS) $^ -o $@
+	$(CC) -c -g -O0 $(CPPFLAGS) $(LDFLAGS) $(CFLAGS) $^ -o $@
 
 lib: $(LIBFT_DIR)
 	@$(MAKE) -C $(LIBFT_DIR)

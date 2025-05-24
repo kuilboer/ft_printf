@@ -6,11 +6,11 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 17:11:20 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/23 16:02:58 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/24 22:46:45 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printfint.h"
+#include "ft_printfint.h"
 #include <unistd.h>
 #include "libft.h"
 
@@ -23,7 +23,7 @@ int	fn_chr(va_list args, t_format *fmt)
 	c = (char)va_arg(args, int);
 	count = 0;
 	i = 0;
-	if (fmt->flag_minus)
+	if (fmt->flag_minus || fmt->flag_zero)
 	{
 		count = write(1, &c, 1);
 		i++;
@@ -33,7 +33,7 @@ int	fn_chr(va_list args, t_format *fmt)
 		count += write(1, " ", 1);
 		i++;
 	}
-	if (fmt->flag_minus)
+	if (!fmt->flag_minus && !fmt->flag_zero)
 	{
 		count = write(1, &c, 1);
 		i++;

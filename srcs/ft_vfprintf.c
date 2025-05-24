@@ -6,11 +6,11 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 00:00:15 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/23 15:37:13 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/24 22:58:52 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printfint.h"
+#include "ft_printfint.h"
 
 static const t_convrs_handler	g_convrs_table[] = {
 {'c', fn_chr},
@@ -192,19 +192,21 @@ int	ft_vfprintf(char const *format, va_list args)
 	int			ti;
 
 	i = 0;
-	while (format[i])
+	while (format && format[i])
 	{
-		if (format[i] == '%' && format[i + 1] == '%')
+		if (format[i + 1] && format[i] == '%' && format[i + 1] == '%')
 			i++;
-		else if (format[i] == '%')
+		else if (format[i] == '%' && format[i + 1])
 		{
 			fmt = (t_format){0};
+			i++;
 			i += parse_formatting_string(&format[i], &fmt);
 			ti = 0;
 			while (g_convrs_table[ti].specifier
 				&& g_convrs_table[ti].specifier != format[i])
 				ti++;
 			g_convrs_table[ti].handler(args, &fmt);
+			i++;
 		}
 		ft_putchar_fd(format[i], 1);
 		i++;

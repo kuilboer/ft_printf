@@ -6,12 +6,23 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/07 18:00:46 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/16 21:13:09 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/18 12:36:39 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*
+Allocates memory (using malloc(3)) and returns a substring from the string ’s’.
+The substring starts at index ’start’ and has a maximum length of ’len’.
+Parameters: 
+	- 's':      Source string;
+	- 'start':  The starting index of the sub string to copy;
+	- 'len':    Maximum length of substring to cpy;
+Returns: 
+	- Substring;
+	- NULL if memory allocation fails.
+*/
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*sub_str;

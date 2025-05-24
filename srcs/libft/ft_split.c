@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/08 15:07:34 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/16 13:48:04 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/24 11:58:35 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ static void	free_words(char **arr, int filled)
 	free(arr);
 }
 
+/*
+* alloc_word, creates a new string and reserves a memory area for it of
+* 'len + 1' bytes and copies the first 'len' bytes from string 's' to it before
+* terminating the new string with a '\0' character.
+* It returns a pointer to the copied string 'word'.
+*/
 static char	*alloc_word(const char *s, int len)
 {
 	char	*word;
@@ -63,6 +69,16 @@ static char	*alloc_word(const char *s, int len)
 	return (word);
 }
 
+/*
+* fill_split() loops over the input string to find the words to copy.
+* it loops over the characters until it finds the first character of
+* a word. it then measures thte length of the word by counting the 
+* characters upto the next delimiter or end of string.
+* a pointer to the starting character and its length is than passed to the
+* function alloc_word tp reserve memory and copy the string.
+* After the last word has been processed, fill_split terminates the last
+* Possition of the array with a NULL pointer for safe processing later on.
+*/
 static int	fill_split(char **res, const char *s, char c)
 {
 	int		i;
@@ -91,6 +107,19 @@ static int	fill_split(char **res, const char *s, char c)
 	return (1);
 }
 
+/*
+* Allocates memory (using malloc(3)) and returns an array of strings obtained
+* by splitting ’s’ using the character ’c’ as a delimiter. The last array el-
+* lement is NULL pointer terminated.
+*
+* Parameters: 
+*	- s: Pointer to string to be split;
+* 	- c: byte character that is used as the delimiter for splitting;
+*
+* Returns:
+*	- A pointer to the array of new strings resulting from the split.
+*	- NULL if the allocation fails.
+*/
 char	**ft_split(const char *s, char c)
 {
 	char	**result;

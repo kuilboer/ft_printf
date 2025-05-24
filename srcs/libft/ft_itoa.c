@@ -6,14 +6,16 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/17 09:26:10 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/19 15:23:35 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/24 10:30:40 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-// Returm the number of digits in an int.
+/*
+* Returm the number of digits in an int.
+*/
 static int	digit_count(int n)
 {
 	int	d_count;
@@ -31,7 +33,9 @@ static int	digit_count(int n)
 	return (d_count);
 }
 
-// Convert integer to character string and return a pointer to that string.
+/*
+* Convert integer to character string and return a pointer to that string.
+*/
 static char	*int_to_char(int n, char *s_nbr, size_t nbr_len)
 {
 	long long	l_nbr;
@@ -60,9 +64,8 @@ static char	*int_to_char(int n, char *s_nbr, size_t nbr_len)
 }
 
 /*
-Allocates memory (using malloc(3)) and returns
-a string representing the integer received as an
-argument. Negative numbers must be handled
+Allocates memory (using malloc(3)) and returns a string representing the inte-
+ger received as an argument. Negative numbers are handled.
 Return value:
 	- The string representing the integer.
 	- NULL if the allocation fails.
