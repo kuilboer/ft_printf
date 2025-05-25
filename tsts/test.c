@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 21:40:22 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/24 22:57:35 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/25 10:00:17 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 int main(void)
 {
-  printf("01234%c7890]\n\n"  , 'a');
-  ft_printf("01%c5"  , 'a');
+  printf("01[%-3c]8", '3');
+  printf("\n");
+  ft_printf("01[%-3c]8", '3');
  // printf("char zeroed: [%05c]\n", 'a');
  // printf("char padded: [% 5c]\n", 'a');
   //printf("char minusd: [%-5c]\n", 'a');

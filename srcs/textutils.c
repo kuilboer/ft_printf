@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 17:11:20 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/24 22:46:45 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/25 09:57:41 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	fn_chr(va_list args, t_format *fmt)
 		count = write(1, &c, 1);
 		i++;
 	}
+	else
+		i++;
 	while (i < fmt->width || i < fmt->precision)
 	{
 		count += write(1, " ", 1);
