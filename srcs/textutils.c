@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 17:11:20 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/25 09:57:41 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/25 10:30:32 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include <unistd.h>
 #include "libft.h"
 
+/*
+* fn_chr() handles the conversion of character based conversions in the string.
+* it takes the a va_list for the source of the actual character to print and a
+* t_format types struct that holds the formatting parameters. for printing. 
+*/
 int	fn_chr(va_list args, t_format *fmt)
 {
 	char	c;
