@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 17:11:20 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/25 10:30:32 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/25 20:36:57 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,56 +22,58 @@
 int	fn_chr(va_list args, t_format *fmt)
 {
 	char	c;
-	int		count;
+	int		prt_count;
 	int		i;
 
 	c = (char)va_arg(args, int);
-	count = 0;
+	prt_count = 0;
 	i = 0;
 	if (fmt->flag_minus || fmt->flag_zero)
 	{
-		count = write(1, &c, 1);
+		prt_count += write(1, &c, 1);
 		i++;
 	}
 	else
 		i++;
 	while (i < fmt->width || i < fmt->precision)
 	{
-		count += write(1, " ", 1);
+		prt_count += write(1, " ", 1);
 		i++;
 	}
 	if (!fmt->flag_minus && !fmt->flag_zero)
 	{
-		count = write(1, &c, 1);
+		prt_count += write(1, &c, 1);
 		i++;
 	}
-	return (count);
+	return (prt_count);
 }
 
 int	fn_str(va_list args, t_format *fmt)
 {
 	char	*str;
-	int		count;
+	int		prt_count;
 	int		i;
 
 	str = va_arg(args, char *);
-	count = 0;
+	prt_count = 0;
 	i = 0;
 	if (fmt->flag_minus)
 	{
-		count = write(1, str, ft_strlen(str));
+		prt_count += write(1, str, ft_strlen(str));
 		i++;
 	}
+	else
+		i += ft_strlen(str);
 	while (i < fmt->width || i < fmt->precision)
 	{
-		count += write(1, " ", 1);
+		prt_count += write(1, " ", 1);
 		i++;
 	}
-	if (fmt->flag_minus)
+	if (!fmt->flag_minus)
 	{
-		count = write(1, str, ft_strlen(str));
+		prt_count += write(1, str, ft_strlen(str));
 		i++;
 	}
-	return (count);
+	return (prt_count);
 }
 

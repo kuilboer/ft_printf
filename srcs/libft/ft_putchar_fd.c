@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/17 19:41:17 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/17 21:15:13 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/25 13:33:21 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ Parameters:
 Return:
 	-
 */
-void	ft_putchar_fd(char c, int fd)
+void	ft_putchar_fd(const char c, int fd)
 {
 	write(fd, &c, 1);
 	return ;

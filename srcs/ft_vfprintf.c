@@ -6,11 +6,12 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 00:00:15 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/24 22:58:52 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/25 20:19:17 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printfint.h"
+#include <unistd.h>
 
 static const t_convrs_handler	g_convrs_table[] = {
 {'c', fn_chr},
@@ -48,7 +49,7 @@ Returns pointer delta value 'i';
 */
 static int	parse_fmt_flags(char const *format, t_format *fmt)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (*format == '-' || *format == '0' || *format == ' '
@@ -88,7 +89,7 @@ Returns pointer delta value 'i';
 */
 static int	parse_fmt_width(char const *format, t_format *fmt)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (ft_isdigit(*format))
@@ -117,7 +118,7 @@ Returns pointer delta value 'i';
 */
 static int	parse_fmt_prcis(char const *format, t_format *fmt)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	if (format[i] == '.')
@@ -150,7 +151,7 @@ Returns pointer delta value 'i';
 */
 static int	parse_formatting_string(char const *format, t_format *fmt)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	i += parse_fmt_flags(&format[i], fmt);
@@ -188,9 +189,11 @@ type specifier, the followint conversion are handled by ft_vfprintf():
 int	ft_vfprintf(char const *format, va_list args)
 {
 	t_format	fmt;
-	int			i;
-	int			ti;
+	size_t		i;
+	size_t		ti;
+	size_t		prt_count;
 
+	prt_count = 0;
 	i = 0;
 	while (format && format[i])
 	{
@@ -205,11 +208,14 @@ int	ft_vfprintf(char const *format, va_list args)
 			while (g_convrs_table[ti].specifier
 				&& g_convrs_table[ti].specifier != format[i])
 				ti++;
-			g_convrs_table[ti].handler(args, &fmt);
+			prt_count += g_convrs_table[ti].handler(args, &fmt);
 			i++;
 		}
-		ft_putchar_fd(format[i], 1);
-		i++;
+		if (format[i])
+		{
+			prt_count += write(1, &format[i], 1); //ft_putchar_fd(format[i], 1);
+			i++;
+		}
 	}
-	return (1);
+	return (prt_count);
 }
