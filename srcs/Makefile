@@ -18,7 +18,10 @@ LDFLAGS 	:=
 SRCS = \
 	ft_printf.c   	\
 	ft_vfprintf.c	\
-	textutils.c	
+	handle_char.c	\
+	handle_str.c	\
+	handler_utils.c	\
+	fmt_parser.c
 
 OBJS = $(SRCS:.c=.o)
 

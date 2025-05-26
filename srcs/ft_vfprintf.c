@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 00:00:15 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/25 20:19:17 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/26 17:17:30 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include <unistd.h>
 
 static const t_convrs_handler	g_convrs_table[] = {
-{'c', fn_chr},
-{'s', fn_str},
+{'c', fn_handle_character_conversion},
+{'s', fn_handle_string_conversion},
 {'\0', NULL}
 };
 
@@ -26,113 +26,22 @@ static const t_convrs_handler	g_convrs_table[] = {
 // {'x', fn_hexl},
 // {'X', fn_hexu},
 
-/*
-Parse Flags:
-Helper function for ft_vfprintf() that processes below flags from a formatting
-substring and stores it in the tmp struct that is provided through the para-
-meter 'fmt'.
-
-Flags:
-
-	'#' (hash ): The value should be converted to an "alternate form". For 'x' 
-	             and 'X' conversions a nonzero result has the string "0x" (or
-				 "0X" for 'X' conversions) prepended to it.
-	'0' (zero ): left padding of field width with 0's(right aligned).
-	'-' (minus): value is left alligned in its field (overwrites 0). the con-
-	             verted value is padded on the right with blanks.
-	' ' (space): print a space in front of positive int and digits where other-
-	             wise the sign would be.
-	'+' (plus ): enforce the use of a sign +/- on signed conversions. By default
-	             a sign is only used for negative numbers. + overrides a space
-
-Returns pointer delta value 'i'; 
-*/
-static int	parse_fmt_flags(char const *format, t_format *fmt)
+static int	run_conversion_handler(va_list args, char const *format, t_format *fmt)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
-	while (*format == '-' || *format == '0' || *format == ' '
-		|| *format == '+' || *format == '#')
-	{
-		if (*format == '-')
-			fmt->flag_minus = 1;
-		else if (*format == '0')
-			fmt->flag_zero = 1;
-		else if (*format == ' ')
-			fmt->flag_space = 1;
-		else if (*format == '+')
-			fmt->flag_plus = 1;
-		else if (*format == '#')
-			fmt->flag_hash = 1;
-		format++;
+	while (g_convrs_table[i].specifier
+		&& g_convrs_table[i].specifier != *format)
 		i++;
-	}
-	return (i);
-}
-
-/*
-Field width:
-
-Helper function for ft_vfprintf() that processes a field width from a format-
-ting substring and stores it in the tmp struct that is provided through the para-
-meter 'fmt'.
-
-(decimal with non 0 first digit): Specify the minimum field width. if the con-
-                verted value has fewer chars than the field width , it will be
-				padded with spaces to the left. In no case does a nonexistent
-				or small field width cause truncation of a field; if the result
-				of a conversion is wider than the field width, the field is ex-
-				panded to contain the conversion result.
-
-Returns pointer delta value 'i'; 
-*/
-static int	parse_fmt_width(char const *format, t_format *fmt)
-{
-	size_t	i;
-
-	i = 0;
-	while (ft_isdigit(*format))
+	if (!g_convrs_table[i].specifier)
 	{
-		fmt->width = fmt->width * 10 + (*format - '0');
-		format++;
-		i++;
+		fmt->prt_count += write(1, "%", 1);
+		fmt->prt_count += write(1, format, 1);
 	}
-	return (i);
-}
-
-/*
-Precision:
-
-Helper function for ft_vfprintf() that processes Precision from a formatting
-substring and stores it in the tmp struct that is provided through the para-
-meter 'fmt'.
-
-	'.' (dot  ): followed by an optional decimal digit string.If the precision
-				 is given as just '.', the precision is taken to be zero.
-				 This gives the minimum number of digits to appear for d, i, u,
-				 x, and X conversions, or the maximum number of characters to 
-				 be printed from a string for s and S conversions.
-
-Returns pointer delta value 'i'; 
-*/
-static int	parse_fmt_prcis(char const *format, t_format *fmt)
-{
-	size_t	i;
-
-	i = 0;
-	if (format[i] == '.')
-	{
-		format++;
-		i++;
-		while (ft_isdigit(*format))
-		{
-			fmt->precision = fmt->precision * 10 + (*format - '0');
-			format++;
-			i++;
-		}
-	}
-	return (i);
+	else
+		g_convrs_table[i].handler(args, fmt);
+	return (fmt->prt_count);
 }
 
 /*
@@ -151,13 +60,11 @@ Returns pointer delta value 'i';
 */
 static int	parse_formatting_string(char const *format, t_format *fmt)
 {
-	size_t	i;
-
-	i = 0;
-	i += parse_fmt_flags(&format[i], fmt);
-	i += parse_fmt_width(&format[i], fmt);
-	i += parse_fmt_prcis(&format[i], fmt);
-	return (i);
+	fmt->read_index = 1;
+	fmt->read_index += parse_fmt_flags(&format[fmt->read_index], fmt);
+	fmt->read_index += parse_fmt_width(&format[fmt->read_index], fmt);
+	fmt->read_index += parse_fmt_prcis(&format[fmt->read_index], fmt);
+	return (fmt->read_index);
 }
 
 /* 
@@ -189,9 +96,8 @@ type specifier, the followint conversion are handled by ft_vfprintf():
 int	ft_vfprintf(char const *format, va_list args)
 {
 	t_format	fmt;
-	size_t		i;
-	size_t		ti;
 	size_t		prt_count;
+	size_t		i;
 
 	prt_count = 0;
 	i = 0;
@@ -202,20 +108,14 @@ int	ft_vfprintf(char const *format, va_list args)
 		else if (format[i] == '%' && format[i + 1])
 		{
 			fmt = (t_format){0};
-			i++;
 			i += parse_formatting_string(&format[i], &fmt);
-			ti = 0;
-			while (g_convrs_table[ti].specifier
-				&& g_convrs_table[ti].specifier != format[i])
-				ti++;
-			prt_count += g_convrs_table[ti].handler(args, &fmt);
+			prt_count += run_conversion_handler(args, &format[i], &fmt);
 			i++;
 		}
-		if (format[i])
-		{
-			prt_count += write(1, &format[i], 1); //ft_putchar_fd(format[i], 1);
-			i++;
-		}
+		if (!format[i])
+			break ;
+		prt_count += write(1, &format[i], 1); //ft_putchar_fd(format[i], 1);
+		i++;
 	}
 	return (prt_count);
 }
