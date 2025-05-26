@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/25 13:58:00 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/26 18:48:42 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/26 20:13:58 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int test_char_format(const char *label, const char *fmt, char c)
 {
 	int ret_sys, ret_ft;
 
+	//printf("\n=== Test: %s ===\n", label);
 	ret_sys = printf("System printf  : ");
 	ret_sys += printf(fmt, c);
 	printf("\n");
@@ -50,6 +51,9 @@ t_result run_char_format_tests(void)
 		{"Right-aligned", "%5c", NULL, 'B'},
 		{"Left-aligned", "%-5c", NULL, 'C'},
 		{"Null char", "%c", NULL, '\0'},
+		{"Width + NUL", "%5c", NULL, '\0'},
+		{"Char in sentence", "[%c] is first", NULL, 'X'},
+		{"Double chars", "%c %c", NULL, 'Y'},
 		{NULL, NULL, NULL, 0}
 	};
 

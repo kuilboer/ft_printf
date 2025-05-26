@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/25 14:01:31 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/25 14:02:40 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/26 20:14:06 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int test_str_format(const char *label, const char *fmt, const char *s)
 {
 	int ret_sys, ret_ft;
 
+	//printf("\n=== Test: %s ===\n", label);
 	ret_sys = printf("System printf  : ");
 	ret_sys += printf(fmt, s);
 	printf("\n");
@@ -44,12 +45,25 @@ t_result run_str_format_tests(void)
 	t_result result = {"String Format", 0, 0};
 
 	t_testcase tests[] = {
+		// {"Basic string", "%s", "hello", 0},
+		// {"Right-aligned", "%10s", "hi", 0},
+		// {"Left-aligned", "%-10s", "yo", 0},
+		// {"Precision cut", "%.3s", "abcdef", 0},
+		// {"Prec + Width", "%10.3s", "abcdef", 0},
+		// {"Null string", "%s", NULL, 0},
+		// {NULL, NULL, NULL, 0}
 		{"Basic string", "%s", "hello", 0},
 		{"Right-aligned", "%10s", "hi", 0},
 		{"Left-aligned", "%-10s", "yo", 0},
 		{"Precision cut", "%.3s", "abcdef", 0},
 		{"Prec + Width", "%10.3s", "abcdef", 0},
 		{"Null string", "%s", NULL, 0},
+		{"Precision zero", "%.0s", "hidden", 0},
+		{"Precision > len", "%.10s", "abc", 0},
+		{"Width < len", "%2s", "abcdef", 0},
+		{"Empty string", "%s", "", 0},
+		{"String in sentence", "Hello, %s!", "world", 0},
+		{"NULL + precision", "%.3s", NULL, 0},
 		{NULL, NULL, NULL, 0}
 	};
 
