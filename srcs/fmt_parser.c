@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/26 15:50:25 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/26 16:16:37 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/26 19:47:38 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,12 @@ int	parse_fmt_prcis(char const *format, t_format *fmt)
 	i = 0;
 	if (*format == '.')
 	{
+		fmt->precision = '.';
 		format++;
 		i++;
 		while (ft_isdigit(*format))
 		{
-			fmt->precision = fmt->precision * 10 + (*format - '0');
+			fmt->precision_len = fmt->precision_len * 10 + (*format - '0');
 			format++;
 			i++;
 		}

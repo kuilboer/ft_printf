@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 17:11:20 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/26 18:30:49 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/26 20:05:17 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ void	fn_handle_string_conversion(va_list args, t_format *fmt)
 	str = va_arg(args, char *);
 	if (!str)
 	{
-		fmt->prt_count = write(1, "(null)", 6);
-		return ;
+		str = "(null)";
+		if (fmt->precision)
+			return ;
 	}
 	fmt->chars_to_print = ft_strlen(str);
-	if (fmt->precision && fmt->precision < fmt->chars_to_print)
-		fmt->chars_to_print = fmt->precision;
+	if (fmt->precision && fmt->precision_len < fmt->chars_to_print)
+		fmt->chars_to_print = fmt->precision_len;
 	if(fmt->width > fmt->chars_to_print)
 		fmt->pad_size = fmt->width - fmt->chars_to_print;
 	if (fmt->flag_minus)

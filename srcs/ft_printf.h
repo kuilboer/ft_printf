@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/19 20:43:24 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/26 17:04:52 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/26 19:45:11 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ typedef struct s_format
 	int		flag_hash;
 	int		flag_plus;
 	size_t	width;
-	size_t	precision;
+	char	precision;
+	size_t	precision_len;
 	size_t	chars_to_print;
 	size_t	pad_size;
 	size_t	prt_count;
