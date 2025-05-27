@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/26 10:19:21 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/26 17:36:15 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/27 17:10:53 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,3 @@ int	pad_residual_width(t_format *fmt)
 	}
 	return (i);
 }
-

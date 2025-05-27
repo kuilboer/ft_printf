@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_itohex.c                                        :+:    :+:            */
+/*   ft_tohex.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/26 22:21:44 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/27 16:43:44 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/27 18:54:32 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include "libft.h"
 
 /**
@@ -20,6 +19,13 @@
  * @param n unsigned long (size_t) number to convert.
  * @param uppercase boolean value that indicates alphachars in the result
  * 					to show in lowercase (0 = false), or uppercase (!0 = true).
+ * @return a pointer to the string containing the hex representaion of n, or 
+ * @return a (NULL) pointer if memory allocation fails;
+ * @details 
+ * ft_utohex_raw takes size_t value 'n', converts it to a string representing
+ * the value of 'n' in a hexadecimal format.
+ * alphabetical digits can be presented in upper- or lower case depending on
+ * the value that is passed through the 'uppercase' boolean parameter. 
  */
 char *ft_utohex_raw(size_t n, int uppercase)
 {
@@ -50,6 +56,11 @@ char *ft_utohex_raw(size_t n, int uppercase)
  * @param n unsigned long (size_t) number to convert.
  * @param uppercase boolean value that indicates alphachars in the result
  * 					to show in lowercase (0 = false), or uppercase (!0 = true).
+ * @returns
+ * @return a pointer to the string containing the hex representaion of n, or 
+ * @return a (NULL) pointer if memory allocation fails.
+ * @details for details on the process see ft_utohex_raw() which handles most 
+ * of the actual conversion for this ft_utohex_trim().
  */
 char *ft_utohex_trim(size_t n, int uppercase)
 {
@@ -58,7 +69,7 @@ char *ft_utohex_trim(size_t n, int uppercase)
 	int		len;
 	int 	i;
 	
-	raw = ft_itohex_raw(n, uppercase);
+	raw = ft_utohex_raw(n, uppercase);
 	i = 0;
 	while (raw && raw[i] == '0')
 		i++;

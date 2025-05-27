@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 22:33:10 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/26 16:27:48 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/27 17:31:06 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@
  */
 void	fn_handle_string_conversion(va_list args, t_format *fmt);
 void	fn_handle_character_conversion(va_list args, t_format *fmt);
+void	fn_handle_pointer_conversion(va_list args, t_format *fmt);
+
 int		pad_residual_width(t_format *fmt);
+char	*ft_utohex_raw(size_t n, int uppercase);
+char	*ft_utohex_trim(size_t n, int uppercase);
 
 /**
  * Iternal formatting parameter parsing helper functions for ft_printf().  
