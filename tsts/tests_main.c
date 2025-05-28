@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   tests_main.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/25 13:55:55 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/25 13:57:42 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/27 19:01:38 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 t_result run_char_format_tests(void);
 t_result run_str_format_tests(void); // placeholder voor string tests
+t_result run_ptr_format_tests(void);
 
 void run_all_tests(void)
 {
@@ -24,6 +25,7 @@ void run_all_tests(void)
 
 	results[num_categories++] = run_char_format_tests();
 	results[num_categories++] = run_str_format_tests(); // voeg andere testgroepen toe
+	results[num_categories++] = run_ptr_format_tests();
 
 	int grand_total = 0;
 	int grand_passed = 0;
