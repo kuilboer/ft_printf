@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/26 10:19:21 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/27 17:10:53 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/29 16:14:05 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	pad_residual_width(t_format *fmt)
 		pad_char = '0';
 	else
 		pad_char = ' ';
-	while (i < fmt->pad_size)
+	while (i < fmt->width_padding_len)
 	{
 		write(1, &pad_char, 1);
 		i++;

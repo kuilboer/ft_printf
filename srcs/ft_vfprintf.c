@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 00:00:15 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/28 20:26:56 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/29 19:55:11 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	parse_formatting_string(char const *format, t_format *fmt)
 	fmt->read_index += parse_fmt_flags(&format[fmt->read_index], fmt);
 	fmt->read_index += parse_fmt_width(&format[fmt->read_index], fmt);
 	fmt->read_index += parse_fmt_prcis(&format[fmt->read_index], fmt);
-	fmt->conv_spec = format[i];
+	fmt->conv_spec = *format;
 	return (fmt->read_index);
 }
 

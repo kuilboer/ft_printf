@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 17:11:20 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/26 20:05:17 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/29 16:14:05 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	fn_handle_string_conversion(va_list args, t_format *fmt)
 	if (fmt->precision && fmt->precision_len < fmt->chars_to_print)
 		fmt->chars_to_print = fmt->precision_len;
 	if(fmt->width > fmt->chars_to_print)
-		fmt->pad_size = fmt->width - fmt->chars_to_print;
+		fmt->width_padding_len = fmt->width - fmt->chars_to_print;
 	if (fmt->flag_minus)
 	{
 		fmt->prt_count += write(1, str, fmt->chars_to_print);

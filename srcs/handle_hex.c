@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 17:11:20 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/29 07:36:07 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/29 20:23:25 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
  * @return	0 when FALSE proper pointer input was received;
  * @return	1 when TRUE NULL input was received;
  */
-static int	null_input_error(char *nbr, t_format *fmt)
+static int	null_input_error(int nbr, t_format *fmt)
 {
 	if (!nbr)
 	{
@@ -34,7 +34,7 @@ static int	null_input_error(char *nbr, t_format *fmt)
 		error = "(nil)";
 		error_len = 5;
 		if (fmt->width > error_len)
-			fmt->pad_size = fmt->width - error_len; 
+			fmt->width_padding_len = fmt->width - error_len; 
 		if (fmt->flag_minus)
 		{
 			fmt->prt_count += write(1, error, error_len);
@@ -50,6 +50,24 @@ static int	null_input_error(char *nbr, t_format *fmt)
 	return (0);
 }
 
+static void write_hexadec_value_left_aligned(t_format *fmt)
+{
+	
+	{
+		if (fmt->num_sign)
+			fmt->prt_count += write(1, &fmt->num_sign, 2);
+		if (fmt->num_prefix_str)
+			fmt->prt_count += write(1, fmt->num_prefix_str, 2);
+		if (fmt->hex_precise_padding_str)
+			fmt->prt_count += write(1, fmt->hex_precise_padding_str, \
+				fmt->precision_len);
+		fmt->prt_count += write(1, fmt->hex_string, ft_strlen(fmt->hex_string));
+		fmt->prt_count += write(1, fmt->width_padding_str, \
+			fmt->width_padding_len); //pad_residual_width(fmt);
+	}
+	return ;
+}
+
 /**
  * @brief 	Private helper function for pointer conversion. It writes out a 
  * 			hex number representing a pointer address with '0x' prefixed to it.
@@ -61,104 +79,49 @@ static int	null_input_error(char *nbr, t_format *fmt)
  * @details
  * format processing order: alignment['+' / ' ']prefix['-' / '0']hex/NIL
  */
-static void	write_hexadec_value(char *nbr, t_format *fmt)
+static void	write_hexadec_value_right_aligned(t_format *fmt)
 {
-	if (fmt->flag_minus)
+	if (fmt->width_padding_len && fmt->width_padding_chr == '0')
 	{
-		fmt->prt_count += write(1, "0x", 2);
-		if (fmt->flag_zero)
-			fmt->prt_count += pad_residual_width(fmt);
-		fmt->prt_count += write(1, nbr, fmt->chars_to_print);
-		if (!fmt->flag_minus)
-			fmt->prt_count += pad_residual_width(fmt);
+		if (fmt->num_sign)
+			fmt->prt_count += write(1, &fmt->num_sign, 1);
+		if (fmt->num_prefix_str)
+			fmt->prt_count += write(1, fmt->num_prefix_str, \
+				ft_strlen(fmt->num_prefix_str));
+		if (fmt->width_padding_len)
+			fmt->prt_count += write(1, fmt->width_padding_str, \
+				fmt->width_padding_len);
 	}
 	else
 	{
-		if (fmt->flag_zero)
-		{
-			fmt->prt_count += write(1, "0x", 2);
-			fmt->prt_count += pad_residual_width(fmt);
-		}
-		else
-		{
-			fmt->prt_count += pad_residual_width(fmt);
-			fmt->prt_count += write(1, "0x", 2);
-		}
-		fmt->prt_count += write(1, nbr, fmt->chars_to_print);
+		if (fmt->width_padding_len)
+			fmt->prt_count += write(1, fmt->width_padding_str, \
+				fmt->width_padding_len);
+		if (fmt->num_sign)
+			fmt->prt_count += write(1, &fmt->num_sign, 1);
+		if (fmt->num_prefix_str)
+			fmt->prt_count += write(1, fmt->num_prefix_str, \
+				ft_strlen(fmt->num_prefix_str));
 	}
+	fmt->prt_count += write(1, fmt->hex_string, ft_strlen(fmt->hex_string));
 	return ;
 }
 
-static void	format_hex_precision_padding(t_format *fmt)
+static void calculate_value_output_length(t_format *fmt)
 {
-	size_t	hex_len;
-	char	*hex_precision_str;
-	size_t	hex_precision_len;
-	size_t	i;
-
-	hex_len = strlen(fmt->hex_string);
-	hex_precision_len = fmt->precision_len - hex_len);
-	if (fmt->precision && (fmt->precision_len > hex_len))
-	{
-		hex_precision_str = malloc(sizeof(char) * hex_precision_len + 1);
-		if (!hex_precision_str)
-			return (NULL);
-		i =0;
-		while (i < (fmt->precision_len - hex_len))
-			hex_precision[i++] = '0';
-		hex_precision[i] = '\0';
-		ft_strlcpy(fmt->hex_precise_padding_str, hex_precision_str, hex_precision_len + 1);
-		return ;
-	}
+	if (fmt->num_sign)
+		fmt->chars_to_print += 1;
+	if (fmt->num_prefix_str)
+		fmt->chars_to_print += 2;
+	if (fmt->hex_precise_padding_str)
+		fmt->chars_to_print += ft_strlen(fmt->hex_precise_padding_str);
+	fmt->chars_to_print += ft_strlen(fmt->hex_string);
+	if (fmt->width && fmt->width > fmt->chars_to_print)
+		fmt->width_padding_len = fmt->width - fmt->chars_to_print; 
 }
 
 /**
- * @brief	Convert *nbr to hex.
- * 			If required copy create a new streng with the length specified  by
- * 			fmt->precision_len. Copy hex to hex_precision right alligned 
- * 			pad the residual space left with '0'.
- * @param	nbr	pointer for which to get the hex address.
- * @param 	fmt	struct that tracks formatting settings and process state.
- * @return	hex	string containing the hex representation of *nbr address.
- * @return	hex_precision	string containing reformatted value of hex. 
- */
-static void	format_hex_string(void *nbr, t_format *fmt)
-{
-	char	*hex;
-	size_t	hex_len;
-	
-	hex = ft_utohex_trim((size_t)nbr, fmt->hex_upper);
-	hex_len = ft_strlen(hex);
-	ft_strlcpy(fmt->hex_string, hex, hex_len + 1);
-	free(hex);
-	return ;
-}
-
-static void format_hex_prefix(t_format *fmt)
-{
-if (fmt->flag_hash && fmt->conv_spec == 'X')
-	{
-		fmt->hex_upper = 1;
-		fmt->hex_prefix = "0X";
-	}
-	else if (fmt->flag_hash)
-		fmt->hex_prefix = "0x";
-return;
-}
-
-static void	configure_hex_output_parameters(size_t nbr, t_format *fmt)
-{
-	char *hex;
-
-	format_hex_prefix(fmt);
-	format_hex_string(nbr, fmt);
-	format_hex_precision_padding(fmt);
-	// format_hex_signage;
-	write_hexadec_value(hex, fmt);
-}
-
-/**
- * @brief Pointer conversion formatting handler.
+ * @brief Hexadecimal conversion formatting handler.
  * @param fmt struct storing ft_printf() formatting data and processing state.
  * @param args va_list holding the actual pointer to translate to stdout.
  * @details
@@ -166,16 +129,17 @@ static void	configure_hex_output_parameters(size_t nbr, t_format *fmt)
  */
 void	fn_handle_hexadec_conversion(va_list args, t_format *fmt)
 {
-	unsigned int	*nbr;
-	char			*hex;
-	int				prefix_len;
-	int				signage_len;
+	int	nbr;
 	
-	nbr = va_arg(args, void *);
+	nbr = va_arg(args, int);
 	if (!null_input_error(nbr, fmt))
 	{
-		configure_hex_output_parameters(nbr, fmt);
-		print_hex_output(fmt);
+		format_hex_output_parameters(nbr, fmt);
+		calculate_value_output_length(fmt);
+		if (fmt->flag_minus)
+			write_hexadec_value_left_aligned(fmt);
+		else
+			write_hexadec_value_right_aligned(fmt);
 	}
 	return ;
 }

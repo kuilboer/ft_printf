@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 17:11:20 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/28 20:07:03 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/29 16:14:05 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	null_input_error(char *ptr, t_format *fmt)
 		error = "(nil)";
 		error_len = 5;
 		if (fmt->width > error_len)
-			fmt->pad_size = fmt->width - error_len; 
+			fmt->width_padding_len = fmt->width - error_len; 
 		if (fmt->flag_minus)
 		{
 			fmt->prt_count += write(1, error, error_len);
@@ -146,7 +146,7 @@ void	fn_handle_pointer_conversion(va_list args, t_format *fmt)
 		hex = format_hexadecimal(ptr, fmt);
 		fmt->chars_to_print = ft_strlen(hex);
 		if(fmt->width > fmt->chars_to_print + prefix_len + signage_len)
-			fmt->pad_size = fmt->width - fmt->chars_to_print - 2;
+			fmt->width_padding_len = fmt->width - fmt->chars_to_print - 2;
 		write_pointer_address(hex, fmt);
 	}
 	else

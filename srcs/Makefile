@@ -16,14 +16,16 @@ LDFLAGS 	:=
 # ==== FILES ==== 
 
 SRCS = \
-	ft_printf.c   	\
-	ft_vfprintf.c	\
-	ft_tohex.c		\
-	handle_char.c	\
-	handle_str.c	\
-	handle_ptr.c 	\
-	handler_utils.c	\
-	fmt_parser.c	\
+	ft_printf.c   		\
+	ft_vfprintf.c		\
+	ft_tohex.c			\
+	handle_char.c		\
+	handle_str.c		\
+	handle_ptr.c 		\
+	handler_utils.c		\
+	handle_hex.c		\
+	handle_hex_format.c \
+	fmt_parser.c		\
 
 
 OBJS = $(SRCS:.c=.o)
