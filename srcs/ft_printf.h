@@ -28,10 +28,16 @@ typedef struct s_format
 	size_t	width;
 	char	precision;
 	size_t	precision_len;
+	char    conv_spec;
 	size_t	chars_to_print;
 	size_t	pad_size;
 	size_t	prt_count;
 	size_t  read_index;
+	char    *hex_prefix;
+	char    *hex_string;
+	char    *hex_precise_padding_str;
+	int     hex_upper;
+	char    num_sign;
 }	t_format;
 
 /* 
