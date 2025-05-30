@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/25 13:58:00 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/26 20:13:58 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/30 17:40:24 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 #include "libft.h"
 #include "ft_printf.h"
 #include "test_defs.h"
+
+typedef struct s_testcase
+{
+	const char 		*label;
+	const char 		*format;
+	const char 		*arg_str; // voor %s
+	char			arg_chr;         // voor %c
+} t_testcase;
 
 static int test_char_format(const char *label, const char *fmt, char c)
 {

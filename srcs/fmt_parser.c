@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/26 15:50:25 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/26 19:47:38 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/30 22:09:05 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ meter 'fmt'.
 
 Returns pointer delta value 'i'; 
 */
-int	parse_fmt_prcis(char const *format, t_format *fmt)
+int	parse_fmt_precision(char const *format, t_format *fmt)
 {
 	size_t	i;
 
@@ -120,5 +120,19 @@ int	parse_fmt_prcis(char const *format, t_format *fmt)
 			i++;
 		}
 	}
+	return (i);
+}
+
+int parse_fmt_conversion(char const *format, t_format *fmt)
+{
+	size_t i;
+
+	i = 0;
+	fmt->conv_spec = *format;
+	if (fmt->conv_spec == 'X')
+		fmt->hex_upper = 1;
+	if (fmt->conv_spec == 'p')
+		fmt->flag_hash = 1;
+	i++;
 	return (i);
 }

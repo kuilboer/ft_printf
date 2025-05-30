@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 22:33:10 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/29 20:19:32 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/30 22:07:40 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ char	*ft_utohex_trim(size_t n, int uppercase);
  */
 int	parse_fmt_flags(char const *format, t_format *fmt);
 int	parse_fmt_width(char const *format, t_format *fmt);
-int	parse_fmt_prcis(char const *format, t_format *fmt);
+int	parse_fmt_precision(char const *format, t_format *fmt);
+int parse_fmt_conversion(char const *format, t_format *fmt);
 
 
 #endif

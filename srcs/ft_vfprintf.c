@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 00:00:15 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/29 19:55:11 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/30 22:42:34 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static const t_convrs_handler	g_convrs_table[] = {
 {'c', fn_handle_character_conversion},
 {'s', fn_handle_string_conversion},
 {'p', fn_handle_pointer_conversion},
+{'x', fn_handle_hexadec_conversion},
+{'X', fn_handle_hexadec_conversion},
 {'\0', NULL}
 };
 
@@ -26,13 +28,31 @@ static const t_convrs_handler	g_convrs_table[] = {
 // {'x', fn_hexl},
 // {'X', fn_hexu},
 
+/**
+ * @brief Manage initialization and freeing of formatting state struct variables
+ * 
+ * Only struct members are allowed to be dynamically allocated. Any dynamic members
+ * MUST be declared in this function so they can be properly released as intended.
+ */
+
+void	free_and_initialize_format_stuct(t_format *fmt)
+{
+	if (fmt->hex_string)
+		free(fmt->hex_string);
+	if (fmt->hex_precise_padding_str)
+		free(fmt->hex_precise_padding_str);
+	if (fmt->width_padding_str)
+		free(fmt->width_padding_str);
+	*fmt = (t_format){0};
+}
+
 static int	run_conversion_handler(va_list args, char const *format, t_format *fmt)
 {
 	size_t i;
 
 	i = 0;
 	while (g_convrs_table[i].specifier
-		&& g_convrs_table[i].specifier != *format)
+		&& g_convrs_table[i].specifier != fmt->conv_spec)
 		i++;
 	if (!g_convrs_table[i].specifier)
 	{
@@ -63,8 +83,8 @@ static int	parse_formatting_string(char const *format, t_format *fmt)
 	fmt->read_index = 1;
 	fmt->read_index += parse_fmt_flags(&format[fmt->read_index], fmt);
 	fmt->read_index += parse_fmt_width(&format[fmt->read_index], fmt);
-	fmt->read_index += parse_fmt_prcis(&format[fmt->read_index], fmt);
-	fmt->conv_spec = *format;
+	fmt->read_index += parse_fmt_precision(&format[fmt->read_index], fmt);
+	fmt->read_index += parse_fmt_conversion(&format[fmt->read_index], fmt);
 	return (fmt->read_index);
 }
 
@@ -100,6 +120,7 @@ int	ft_vfprintf(char const *format, va_list args)
 	size_t		prt_count;
 	size_t		i;
 
+	fmt = (t_format){0};
 	prt_count = 0;
 	i = 0;
 	while (format && format[i])
@@ -108,10 +129,10 @@ int	ft_vfprintf(char const *format, va_list args)
 			i++;
 		else if (format[i] == '%' && format[i + 1])
 		{
-			fmt = (t_format){0};
 			i += parse_formatting_string(&format[i], &fmt);
 			prt_count += run_conversion_handler(args, &format[i], &fmt);
-			i++;
+			free_and_initialize_format_stuct(&fmt);
+			//i++;
 		}
 		if (!format[i])
 			break ;

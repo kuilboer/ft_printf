@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/29 13:43:33 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/29 20:46:09 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/30 21:58:19 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,10 @@ static void	format_hex_signage_and_prefix(t_format *fmt)
 
 static void format_width_padding(t_format *fmt)
 {
-	char	*padding_string;
 	size_t		i;
 
-	padding_string = malloc(sizeof(char) * fmt->width_padding_len + 1);
-	if (!padding_string)
+	fmt->width_padding_str = malloc(sizeof(char) * fmt->width_padding_len + 1);
+	if (!fmt->width_padding_str)
 		return; 
 	i = 0;
 	if (fmt->flag_zero && !fmt->flag_minus && !fmt->precision)
@@ -43,9 +42,8 @@ static void format_width_padding(t_format *fmt)
 	else
 		fmt->width_padding_chr = ' ';
 	while (i < fmt->width_padding_len)
-		padding_string[i++] = fmt->width_padding_chr = '0';
-	ft_strlcpy(fmt->width_padding_str, padding_string, fmt->width_padding_len);
-	free(padding_string);
+		fmt->width_padding_str[i++] = fmt->width_padding_chr;
+	fmt->width_padding_str[i] = '\0';
 	return ;
 }
 
@@ -88,12 +86,9 @@ static void	format_hex_precision_padding(t_format *fmt)
 static void	format_hex_string(size_t nbr, t_format *fmt)
 {
 	char	*hex;
-	size_t	hex_len;
-	
+	//size_t	hex_len;
 	hex = ft_utohex_trim((size_t)nbr, fmt->hex_upper);
-	hex_len = ft_strlen(hex);
-	ft_strlcpy(fmt->hex_string, hex, hex_len + 1);
-	free(hex);
+	fmt->hex_string = hex;
 	return ;
 }
 

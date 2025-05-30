@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/25 13:58:00 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/28 19:21:11 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/30 17:32:51 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 #include "libft.h"
 #include "ft_printf.h"
 #include "test_defs.h"
+
+ typedef struct s_testcase
+{
+	const char 		*label;
+	const char 		*format;
+	const char 		*arg_str; // voor %s
+
+} t_testcase;
 
 static int test_ptr_format(const char *label, const char *fmt, void *p)
 {
@@ -45,29 +53,29 @@ t_result run_ptr_format_tests(void)
 	t_result result = {"Pointer Format", 0, 0};
 
 	t_testcase tests[] = {
-		{"Basic pointer", "%p", "hello", 0},
-		{"Right-aligned (width 20)", "%20p", "aligned", 0},
-		{"Left-aligned (width 20)", "%-20p", "left", 0},
-		{"Precision ignored", "%.5p", "precise", 0},
-		{"Zero-padding ignored", "%020p", "zpad", 0},
-		{"Pointer with space + width", "% 20p", "test", 0},
-		{"Pointer with left align", "%-20p", "test", 0},
-		{"Pointer with space + left align", "% -20p", "test", 0},
-		{"NULL pointer with space", "% 20p", NULL, 0},
-		{"NULL pointer", "%p", NULL, 0},
-		{"With plus flag", "%+p", "hello", 0},
-		{"Plus with width", "%+20p", "world", 0},
-		{"Plus with left-align", "%+-20p", "test", 0},
-		{"Plus with zero-pad", "%+020p", "pluszero", 0},
-		{"Zero-pad, width, left-align", "%0-20p", "ptr", 0},
-		{"Plus with precision", "%+.2p", "precise", 0},
-		{"Precision padded pointer", "%.16p", "ptr", 0},
-		{"Precision + width", "%30.0p", "ptr", 0},
-		{"Left-alighned + Precision + width", "%-30.16p", "ptr", 0},
-		{"Plus and space", "%+ p", "combo", 0},
-		{"NULL with plus", "%+p", NULL, 0},
+		{"Basic pointer", "%p", "hello"},
+		{"Right-aligned (width 20)", "%20p", "aligned"},
+		{"Left-aligned (width 20)", "%-20p", "left"},
+		{"Precision ignored", "%.5p", "precise"},
+		{"Zero-padding ignored", "%020p", "zpad"},
+		{"Pointer with space + width", "% 20p", "test"},
+		{"Pointer with left align", "%-20p", "test"},
+		{"Pointer with space + left align", "% -20p", "test"},
+		{"NULL pointer with space", "% 20p", NULL},
+		{"NULL pointer", "%p", NULL},
+		{"With plus flag", "%+p", "hello"},
+		{"Plus with width", "%+20p", "world"},
+		{"Plus with left-align", "%+-20p", "test"},
+		{"Plus with zero-pad", "%+020p", "pluszero"},
+		{"Zero-pad, width, left-align", "%0-20p", "ptr"},
+		{"Plus with precision", "%+.2p", "precise"},
+		{"Precision padded pointer", "%.16p", "ptr"},
+		{"Precision + width", "%30.0p", "ptr"},
+		{"Left-alighned + Precision + width", "%-30.16p", "ptr"},
+		{"Plus and space", "%+ p", "combo"},
+		{"NULL with plus", "%+p", NULL},
 
-		{NULL, NULL, NULL, 0}
+		{NULL, NULL, NULL}
 };
 
 
