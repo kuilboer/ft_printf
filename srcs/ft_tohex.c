@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/26 22:21:44 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/30 23:08:30 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/31 10:25:29 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char *ft_utohex_trim(size_t n, int uppercase)
 	while (raw && raw[i] == '0')
 		i++;
 	len = ft_strlen(&raw[i]);
-	cln = malloc(len)  + 1;
+	cln = malloc(len + 1);
 	if (!cln)
 	{
 		free(raw);

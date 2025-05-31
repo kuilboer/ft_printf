@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 17:11:20 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/29 20:23:25 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/31 16:13:22 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void write_hexadec_value_left_aligned(t_format *fmt)
 	
 	{
 		if (fmt->num_sign)
-			fmt->prt_count += write(1, &fmt->num_sign, 2);
+			fmt->prt_count += write(1, &fmt->num_sign, 1);
 		if (fmt->num_prefix_str)
 			fmt->prt_count += write(1, fmt->num_prefix_str, 2);
 		if (fmt->hex_precise_padding_str)
@@ -94,30 +94,17 @@ static void	write_hexadec_value_right_aligned(t_format *fmt)
 	}
 	else
 	{
-		if (fmt->width_padding_len)
-			fmt->prt_count += write(1, fmt->width_padding_str, \
-				fmt->width_padding_len);
+		fmt->prt_count += write(1, fmt->width_padding_str, \
+			fmt->width_padding_len);
 		if (fmt->num_sign)
 			fmt->prt_count += write(1, &fmt->num_sign, 1);
-		if (fmt->num_prefix_str)
-			fmt->prt_count += write(1, fmt->num_prefix_str, \
-				ft_strlen(fmt->num_prefix_str));
+		if (fmt->flag_hash)
+			fmt->prt_count += write(1, fmt->num_prefix_str, 2);
+		fmt->prt_count += write(1, fmt->hex_precise_padding_str, \
+			fmt->hex_precise_padding_len);
 	}
 	fmt->prt_count += write(1, fmt->hex_string, ft_strlen(fmt->hex_string));
 	return ;
-}
-
-static void calculate_value_output_length(t_format *fmt)
-{
-	if (fmt->num_sign)
-		fmt->chars_to_print += 1;
-	if (fmt->num_prefix_str)
-		fmt->chars_to_print += 2;
-	if (fmt->hex_precise_padding_str)
-		fmt->chars_to_print += ft_strlen(fmt->hex_precise_padding_str);
-	fmt->chars_to_print += ft_strlen(fmt->hex_string);
-	if (fmt->width && fmt->width > fmt->chars_to_print)
-		fmt->width_padding_len = fmt->width - fmt->chars_to_print; 
 }
 
 /**
@@ -135,7 +122,6 @@ void	fn_handle_hexadec_conversion(va_list args, t_format *fmt)
 	if (!null_input_error(nbr, fmt))
 	{
 		format_hex_output_parameters(nbr, fmt);
-		calculate_value_output_length(fmt);
 		if (fmt->flag_minus)
 			write_hexadec_value_left_aligned(fmt);
 		else
