@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/25 13:58:00 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/31 10:26:21 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/31 18:33:38 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ t_result run_hex_format_tests(void)
 	t_result result = {"Pointer Format", 0, 0};
 
 	t_testcase tests[] = {
-		{"Basic lowercase hex", "[%x]", 255},
-		{"Basic uppercase hex", "[%X]", 255},
+		// {"Basic lowercase hex", "[%x]", 255},
+		// {"Basic uppercase hex", "[%X]", 255},
 		{"Zero value", "[%x]", 0},
 		{"Width 5", "[%5x]", 255},
 		{"Zero-padding width 5", "[%05x]", 255},

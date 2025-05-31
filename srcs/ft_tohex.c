@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/26 22:21:44 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/31 10:25:29 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/31 18:53:29 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ char *ft_utohex_trim(size_t n, int uppercase)
 	int		len;
 	int 	i;
 	
+	if ( n == 0)
+		return (ft_strdup("0"));
 	raw = ft_utohex_raw(n, uppercase);
 	i = 0;
 	while (raw && raw[i] == '0')

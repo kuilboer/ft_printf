@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/29 13:43:33 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/31 15:47:17 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/31 19:27:08 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static void	format_hex_string(size_t nbr, t_format *fmt)
 	char	*hex;
 	hex = ft_utohex_trim((size_t)nbr, fmt->hex_upper);
 	fmt->hex_string = hex;
+	fmt->hex_input_nbr = nbr;
 	fmt->hex_string_len = ft_strlen(fmt->hex_string);
 	return ;
 }

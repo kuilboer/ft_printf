@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 22:33:10 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/31 15:40:30 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/05/31 19:25:54 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,42 +31,43 @@
 typedef struct s_format
 {
 	/** True if '-' flag is set: left-align the output within the given field width. */
-	int		flag_minus;
+	int				flag_minus;
 	/** True if '0' pad numeric output with zeroes instead of spaces. */
-	int		flag_zero;
+	int				flag_zero;
 	/** True if ' ' (space) flag is set: prepend a space before positive numbers. */
-	int		flag_space;
+	int				flag_space;
 	/** True if '#' flag is set: use alternate form (e.g., '0x' for hex, '0' for octal). */
-	int		flag_hash;
+	int				flag_hash;
 	/** True if '+' flag is set: always show sign for numeric output. */
-	int		flag_plus;
+	int				flag_plus;
 	/** Minimum field width for the formatted output. Zero means no width specified. */
-	size_t	width;
+	size_t			width;
 	/** True if '.' flag is set: apply precision_len to output.
 	 * 	if no numerical precision follows after the flag '.', ".0" is assumed*/
-	char	precision;
+	char			precision;
 	/** Only used if percision char is set to '.'
 	 * Precision length specifies the minimum characters returned for numeric-
 	 * al values. For string values it specifies the max. characters printed.*/
-	size_t	precision_len;
+	size_t			precision_len;
 	/** Conversion specifier character (e.g., 'd', 's', 'x', etc.). */
-	char    conv_spec;
-	size_t	prt_count;
-	size_t  read_index;
-	char    *num_prefix_str;
-	char    *hex_string;
-	size_t	hex_string_len;
-	char    *hex_precise_padding_str;
-	size_t		hex_precise_padding_len;
-	int     hex_upper;
-	char    num_sign;
+	char			conv_spec;
+	size_t			prt_count;
+	size_t			read_index;
+	char			*num_prefix_str;
+	char			*hex_string;
+	size_t			hex_string_len;
+	unsigned int	hex_input_nbr; 
+	char			*hex_precise_padding_str;
+	size_t			hex_precise_padding_len;
+	int				hex_upper;
+	char			num_sign;
 	/// @brief calculated number of characters to print before width-padding.
-	size_t	chars_to_print;
-	char	width_padding_chr;
+	size_t			chars_to_print;
+	char			width_padding_chr;
 	/// @brief Calculated remaining field width to be padded.
-	size_t	width_padding_len;
+	size_t			width_padding_len;
 	/// @brief Preformatted padding string with proper char and len.
-	char	*width_padding_str;
+	char			*width_padding_str;
 }	t_format;
 
 /* 
