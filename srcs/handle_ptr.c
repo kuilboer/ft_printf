@@ -6,11 +6,11 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 17:11:20 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/29 16:14:05 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/01 16:41:57 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printfint.h"
+#include "ft_printf_int.h"
 #include <unistd.h>
 #include "libft.h"
 
@@ -26,19 +26,18 @@
  */
 static int	null_input_error(char *ptr, t_format *fmt)
 {
+	char	*error;
+	size_t	error_len;
+
 	if (!ptr)
 	{
-		char 	*error;
-		size_t 	error_len;
-
 		error = "(nil)";
 		error_len = 5;
 		if (fmt->width > error_len)
-			fmt->width_padding_len = fmt->width - error_len; 
+			fmt->width_padding_len = fmt->width - error_len;
 		if (fmt->flag_minus)
 		{
 			fmt->prt_count += write(1, error, error_len);
-			//fmt->prt_count += pad_residual_width(fmt);
 		}
 		else
 		{
@@ -88,6 +87,7 @@ static void	write_pointer_address(char *ptr, t_format *fmt)
 	}
 	return ;
 }
+
 /**
  * @brief	Convert *ptr to hex.
  * 			If required copy create a new streng with the length specified  by
@@ -115,7 +115,7 @@ static char	*format_hexadecimal(void *ptr, t_format *fmt)
 			free(hex);
 			return (NULL);
 		}
-		i =0;
+		i = 0;
 		while (fmt->precision_len - i > hex_len)
 			hex_precision[i++] = '0';
 		ft_strlcpy(&hex_precision[i], hex, hex_len +1);
@@ -138,6 +138,7 @@ void	fn_handle_pointer_conversion(va_list args, t_format *fmt)
 	char	*hex;
 	int		prefix_len;
 	int		signage_len;
+
 	signage_len = 0;
 	prefix_len = 2;
 	ptr = va_arg(args, void *);
@@ -145,7 +146,7 @@ void	fn_handle_pointer_conversion(va_list args, t_format *fmt)
 	{
 		hex = format_hexadecimal(ptr, fmt);
 		fmt->chars_to_print = ft_strlen(hex);
-		if(fmt->width > fmt->chars_to_print + prefix_len + signage_len)
+		if (fmt->width > fmt->chars_to_print + prefix_len + signage_len)
 			fmt->width_padding_len = fmt->width - fmt->chars_to_print - 2;
 		write_pointer_address(hex, fmt);
 	}

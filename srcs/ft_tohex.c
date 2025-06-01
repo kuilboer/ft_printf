@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/26 22:21:44 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/31 18:53:29 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/01 14:32:15 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@
  * alphabetical digits can be presented in upper- or lower case depending on
  * the value that is passed through the 'uppercase' boolean parameter. 
  */
-char *ft_utohex_raw(size_t n, int uppercase)
+char	*ft_utohex_raw(size_t n, int uppercase)
 {
-	char *str;
-	const char *digits;
-	int i;
+	char		*str;
+	const char	*digits;
+	int			i;
 
 	i = 2 * sizeof(size_t);
 	str = malloc(i + 1);
@@ -42,9 +42,9 @@ char *ft_utohex_raw(size_t n, int uppercase)
 	else
 		digits = "0123456789abcdef";
 	str[i] = '\0';
-	while (i > 0) 
+	while (i > 0)
 	{
-		str[--i] = digits[n&0xF];
+		str[--i] = digits[n & 0xF];
 		n >>= 4;
 	}
 	return (str);
@@ -62,14 +62,14 @@ char *ft_utohex_raw(size_t n, int uppercase)
  * @details for details on the process see ft_utohex_raw() which handles most 
  * of the actual conversion for this ft_utohex_trim().
  */
-char *ft_utohex_trim(size_t n, int uppercase)
+char	*ft_utohex_trim(size_t n, int uppercase)
 {
 	char	*raw;
 	char	*cln;
 	int		len;
-	int 	i;
-	
-	if ( n == 0)
+	int		i;
+
+	if (n == 0)
 		return (ft_strdup("0"));
 	raw = ft_utohex_raw(n, uppercase);
 	i = 0;

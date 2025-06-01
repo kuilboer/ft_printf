@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_printfint.h                                     :+:    :+:            */
+/*   ft_printf_int.h                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 22:33:10 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/31 19:25:54 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/01 16:43:29 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINT_FINT_H
+#ifndef FT_PRINTF_INT_H
 
-# define FT_PRINT_FINT_H
+# define FT_PRINTF_INT_H
 
 # include <stdarg.h>
 # include "libft.h"
@@ -25,25 +25,25 @@
  * @brief Struct that holds formatting state for a single conversion in
  * ft_printf.
  * 
- * This struct is filled during format string parsing and used by handler functions
- * to apply formatting like field width, padding, and alignment.
+ * This struct is filled during format string parsing and used by handler func-
+ * tions to apply formatting like field width, padding, and alignment.
  */
 typedef struct s_format
 {
-	/** True if '-' flag is set: left-align the output within the given field width. */
+	/** True if '-' flag is set: left-align the output within field width.*/
 	int				flag_minus;
 	/** True if '0' pad numeric output with zeroes instead of spaces. */
 	int				flag_zero;
-	/** True if ' ' (space) flag is set: prepend a space before positive numbers. */
+	/** True if ' ' (space) flag is set, prepend ' ' before positive numbers.*/
 	int				flag_space;
-	/** True if '#' flag is set: use alternate form (e.g., '0x' for hex, '0' for octal). */
+	/** True if '#' flag is set: use alternate form ('0x' for hex, . . ) */
 	int				flag_hash;
 	/** True if '+' flag is set: always show sign for numeric output. */
 	int				flag_plus;
-	/** Minimum field width for the formatted output. Zero means no width specified. */
+	/** Minimum field width for the formatted output. */
 	size_t			width;
-	/** True if '.' flag is set: apply precision_len to output.
-	 * 	if no numerical precision follows after the flag '.', ".0" is assumed*/
+	/** True if '.' flag is set: apply precision_len to output. if no
+	 * 	numerical precision follows after the flag '.', ".0" is assumed. */
 	char			precision;
 	/** Only used if percision char is set to '.'
 	 * Precision length specifies the minimum characters returned for numeric-
@@ -56,7 +56,7 @@ typedef struct s_format
 	char			*num_prefix_str;
 	char			*hex_string;
 	size_t			hex_string_len;
-	unsigned int	hex_input_nbr; 
+	unsigned int	hex_input_nbr;
 	char			*hex_precise_padding_str;
 	size_t			hex_precise_padding_len;
 	int				hex_upper;
@@ -101,10 +101,9 @@ char	*ft_utohex_trim(size_t n, int uppercase);
 /**
  * Iternal formatting parameter parsing helper functions for ft_printf().  
  */
-int	parse_fmt_flags(char const *format, t_format *fmt);
-int	parse_fmt_width(char const *format, t_format *fmt);
-int	parse_fmt_precision(char const *format, t_format *fmt);
-int parse_fmt_conversion(char const *format, t_format *fmt);
-
+int		parse_fmt_flags(char const *format, t_format *fmt);
+int		parse_fmt_width(char const *format, t_format *fmt);
+int		parse_fmt_precision(char const *format, t_format *fmt);
+int		parse_fmt_conversion(char const *format, t_format *fmt);
 
 #endif

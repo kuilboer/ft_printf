@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/25 13:58:00 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/31 18:33:38 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/01 16:39:46 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ t_result run_hex_format_tests(void)
 	t_result result = {"Pointer Format", 0, 0};
 
 	t_testcase tests[] = {
-		// {"Basic lowercase hex", "[%x]", 255},
-		// {"Basic uppercase hex", "[%X]", 255},
+		{"Basic lowercase hex", "[%x]", 255},
+		{"Basic uppercase hex", "[%X]", 255},
 		{"Zero value", "[%x]", 0},
 		{"Width 5", "[%5x]", 255},
 		{"Zero-padding width 5", "[%05x]", 255},
@@ -77,6 +77,32 @@ t_result run_hex_format_tests(void)
 		{"Hash + value zero (no prefix)", "[%#x]", 0},
 		{"Hash + zero padding with value zero", "[%#08x]", 0},
 		{"Prefix + large value (no trunc)", "[%#4x]", 0xABCDEF },
+		{"Max unsigned int", "[%x]", 0xFFFFFFFF},
+		{"Max unsigned int uppercase", "[%X]", 0xFFFFFFFF},
+		{"Precision zero + non-zero value", "[%.0x]", 42},
+		{"Left-align + precision", "[%-8.5x]", 123},
+		{"Width == value length", "[%2x]", 0xF},
+		{"Width == value length + prefix", "[%#4x]", 0xF},
+		{"Hash + precision only", "[%#.5x]", 0x42},
+		{"Large precision", "[%.20x]", 12345},
+		{"All flags + width + precision", "[%-#08.5X]", 0x7FA3},
+		{"Zero value", "[%x]", 0},                              // Test 2
+		{"Precision zero + value zero", "[%.0x]", 0},           // Test 2 / 28
+		{"Width + precision zero + value zero", "[%5.0x]", 0},  // Test 28
+		{"Hash + value zero (no prefix)", "[%#x]", 0},          // Test 2 / 28 / 29
+		{"Hash + width + value zero", "[%#5x]", 0},             // Test 13/14/15/16/17
+		{"Hash + precision only", "[%#.5x]", 0x42},             // Test 14
+		{"Hash + width + precision", "[%#8.5x]", 0x42},         // Test 15
+		{"Hash + left align", "[%-#8.5x]", 0x42},               // Test 17
+		{"Hash + zero-padding", "[%#08x]", 0x42},               // Test 16
+		{"Max unsigned int", "[%x]", 0xFFFFFFFF},               // Test 18
+		{"Max unsigned int uppercase", "[%X]", 0xFFFFFFFF},     // Test 18
+		{"INT_MAX", "[%x]", 0x7FFFFFFF},                        // Test 19
+		{"INT_MIN cast to unsigned", "[%x]", (unsigned int)0x80000000},  // Test 20
+		{"Large random unsigned", "[%x]", 1234567890U},         // Test 21
+		{"Negative value cast (UINT_MAX)", "[%x]", (unsigned int)-1},    // Test 23
+		{"Negative value cast (UINT_MAX) + prefix", "[%#x]", (unsigned int)-1}, // Test 24
+		{"All flags + width + precision", "[%-#08.5x]", 0x7FA3}, // Test 26/27/31
 		{NULL, NULL, 0}
 };
 

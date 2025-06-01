@@ -6,11 +6,11 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 00:00:15 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/31 17:23:48 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/01 16:41:57 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printfint.h"
+#include "ft_printf_int.h"
 #include <unistd.h>
 
 static const t_convrs_handler	g_convrs_table[] = {
@@ -25,16 +25,14 @@ static const t_convrs_handler	g_convrs_table[] = {
 // {'d', fn_dgt},
 // {'i', fn_int},
 // {'u', fn_uns},
-// {'x', fn_hexl},
-// {'X', fn_hexu},
 
 /**
  * @brief Manage initialization and freeing of formatting state struct variables
  * 
- * Only struct members are allowed to be dynamically allocated. Any dynamic members
- * MUST be declared in this function so they can be properly released as intended.
+ * Only struct members are allowed to be dynamically allocated. Any dynamic
+ * members MUST be declared in this function so they can be properly released
+ * as intended.
  */
-
 void	free_and_initialize_format_stuct(t_format *fmt)
 {
 	if (fmt->hex_string)
@@ -46,9 +44,10 @@ void	free_and_initialize_format_stuct(t_format *fmt)
 	*fmt = (t_format){0};
 }
 
-static int	run_conversion_handler(va_list args, char const *format, t_format *fmt)
+static int	run_conversion_handler(va_list args, \
+	char const *format, t_format *fmt)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (g_convrs_table[i].specifier
@@ -132,11 +131,10 @@ int	ft_vfprintf(char const *format, va_list args)
 			i += parse_formatting_string(&format[i], &fmt);
 			prt_count += run_conversion_handler(args, &format[i], &fmt);
 			free_and_initialize_format_stuct(&fmt);
-			//i++;
 		}
 		if (!format[i])
 			break ;
-		prt_count += write(1, &format[i], 1); //ft_putchar_fd(format[i], 1);
+		prt_count += write(1, &format[i], 1);
 		i++;
 	}
 	return (prt_count);

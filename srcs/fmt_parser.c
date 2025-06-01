@@ -6,12 +6,11 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/26 15:50:25 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/05/30 22:09:05 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/01 16:41:57 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printfint.h"
-
+#include "ft_printf_int.h"
 
 /*
 Parse Flags:
@@ -123,9 +122,9 @@ int	parse_fmt_precision(char const *format, t_format *fmt)
 	return (i);
 }
 
-int parse_fmt_conversion(char const *format, t_format *fmt)
+int	parse_fmt_conversion(char const *format, t_format *fmt)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	fmt->conv_spec = *format;
