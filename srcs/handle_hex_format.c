@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/29 13:43:33 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/01 16:41:57 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/02 16:41:37 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	format_width_padding(t_format *fmt)
 {
 	size_t	i;
 
-	if (fmt->width && fmt->width > fmt->chars_to_print)
+	if (fmt->width_padding_len)
 	{
 		fmt->width_padding_str = \
 			malloc(sizeof(char) * fmt->width_padding_len + 1);
@@ -36,7 +36,7 @@ static void	format_width_padding(t_format *fmt)
 
 static void	format_calculate_value_output_length(t_format *fmt)
 {
-	if (fmt->num_sign)
+	if (fmt->num_sign && fmt->conv_spec == 'p')
 		fmt->chars_to_print += 1;
 	if (fmt->num_prefix_str)
 		fmt->chars_to_print += 2;

@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 00:00:15 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/01 16:41:57 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/02 16:05:37 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static const t_convrs_handler	g_convrs_table[] = {
  * members MUST be declared in this function so they can be properly released
  * as intended.
  */
-void	free_and_initialize_format_stuct(t_format *fmt)
+static void	free_and_initialize_format_stuct(t_format *fmt)
 {
 	if (fmt->hex_string)
 		free(fmt->hex_string);
@@ -61,30 +61,6 @@ static int	run_conversion_handler(va_list args, \
 	else
 		g_convrs_table[i].handler(args, fmt);
 	return (fmt->prt_count);
-}
-
-/*
-Parse Formatting string:
-
-This is a helper function for vftprintf() function. It abstracts an optional
-formating substring, that is identified by a '%' char and which ends after the 
-occurence of an alphabetic char that specifies the data conversion type to 
-apply, from the 'format' string and stores it in a temporary struct 'fmt' for 
-later processing. The order in which the different parts of the formatting sub-
-string are parsed is as follows: 
-
-%[flags][width][.precision]conversion
-
-Returns pointer delta value 'i'; 
-*/
-static int	parse_formatting_string(char const *format, t_format *fmt)
-{
-	fmt->read_index = 1;
-	fmt->read_index += parse_fmt_flags(&format[fmt->read_index], fmt);
-	fmt->read_index += parse_fmt_width(&format[fmt->read_index], fmt);
-	fmt->read_index += parse_fmt_precision(&format[fmt->read_index], fmt);
-	fmt->read_index += parse_fmt_conversion(&format[fmt->read_index], fmt);
-	return (fmt->read_index);
 }
 
 /* 

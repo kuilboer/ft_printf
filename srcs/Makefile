@@ -19,9 +19,7 @@ SRCS = \
 	ft_printf.c   		\
 	ft_vfprintf.c		\
 	ft_tohex.c		\
-	handle_char.c		\
-	handle_str.c		\
-	handle_ptr.c 		\
+	handle_txt.c	\
 	handler_utils.c		\
 	handle_hex.c		\
 	handle_hex_format.c 	\

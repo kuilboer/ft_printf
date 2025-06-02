@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 17:11:20 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/01 16:41:57 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/02 16:09:38 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,34 +24,35 @@
  * @return	0 when FALSE proper pointer input was received;
  * @return	1 when TRUE NULL input was received;
  */
-// static int	null_input_error(int nbr, t_format *fmt)
-// {
-// 	if (!nbr)
-// 	{
-// 		char 	*error;
-// 		size_t 	error_len;
+static int	null_input_error(void *ptr, t_format *fmt)
+{
+	char	*error;
+	size_t	error_len;
 
-// 		error = "(nil)";
-// 		error_len = 5;
-// 		if (fmt->width > error_len)
-// 			fmt->width_padding_len = fmt->width - error_len; 
-// 		if (fmt->flag_minus)
-// 		{
-// 			fmt->prt_count += write(1, error, error_len);
-// 			//fmt->prt_count += pad_residual_width(fmt);
-// 		}
-// 		else
-// 		{
-// 			fmt->prt_count += pad_residual_width(fmt);
-// 			fmt->prt_count += write(1, "(nil)", 5);
-// 		}
-// 		return (1);
-// 	}
-// 	return (0);
-// }
+	if (!ptr)
+	{
+		error = "(nil)";
+		error_len = 5;
+		if (fmt->width > error_len)
+			fmt->width_padding_len = fmt->width - error_len;
+		if (fmt->flag_minus)
+		{
+			fmt->prt_count += write(1, error, error_len);
+		}
+		else
+		{
+			fmt->prt_count += pad_residual_width(fmt);
+			fmt->prt_count += write(1, "(nil)", 5);
+		}
+		return (1);
+	}
+	return (0);
+}
 
 static void	write_hexadec_value_left_aligned(t_format *fmt)
 {
+	if (fmt->num_sign && fmt->conv_spec == 'p')
+		fmt->prt_count += write(1, &fmt->num_sign, 1);
 	if (fmt->flag_hash && fmt->hex_input_nbr != 0)
 		fmt->prt_count += write(1, fmt->num_prefix_str, 2);
 	if (fmt->hex_precise_padding_str)
@@ -78,6 +79,8 @@ static void	write_hexadec_value_right_aligned(t_format *fmt)
 {
 	if (fmt->width_padding_len && fmt->width_padding_chr == '0')
 	{
+		if (fmt->num_sign && fmt->conv_spec == 'p')
+			fmt->prt_count += write(1, &fmt->num_sign, 1);
 		if (fmt->flag_hash && fmt->hex_input_nbr != 0)
 			fmt->prt_count += write(1, fmt->num_prefix_str, \
 				ft_strlen(fmt->num_prefix_str));
@@ -89,6 +92,8 @@ static void	write_hexadec_value_right_aligned(t_format *fmt)
 	{
 		fmt->prt_count += write(1, fmt->width_padding_str, \
 			fmt->width_padding_len);
+		if (fmt->num_sign && fmt->conv_spec == 'p')
+			fmt->prt_count += write(1, &fmt->num_sign, 1);
 		if (fmt->flag_hash && fmt->hex_input_nbr != 0)
 			fmt->prt_count += write(1, fmt->num_prefix_str, 2);
 		if (fmt->hex_precise_padding_str && fmt->hex_precise_padding_len)
@@ -97,7 +102,6 @@ static void	write_hexadec_value_right_aligned(t_format *fmt)
 	}
 	if (!(fmt->precision && fmt->hex_input_nbr == 0))
 		fmt->prt_count += write(1, fmt->hex_string, ft_strlen(fmt->hex_string));
-	return ;
 }
 
 /**
@@ -117,5 +121,21 @@ void	fn_handle_hexadec_conversion(va_list args, t_format *fmt)
 		write_hexadec_value_left_aligned(fmt);
 	else
 		write_hexadec_value_right_aligned(fmt);
+	return ;
+}
+
+void	fn_handle_pointer_conversion(va_list args, t_format *fmt)
+{
+	void	*ptr;
+
+	ptr = va_arg(args, void *);
+	if (!null_input_error(ptr, fmt))
+	{
+		format_hex_output_parameters((size_t)ptr, fmt);
+		if (fmt->flag_minus)
+			write_hexadec_value_left_aligned(fmt);
+		else
+			write_hexadec_value_right_aligned(fmt);
+	}
 	return ;
 }

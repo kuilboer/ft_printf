@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/25 13:58:00 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/01 16:39:46 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/02 16:01:39 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,17 @@ static int test_hex_format(const char *label, const char *fmt, unsigned int hex)
 
 t_result run_hex_format_tests(void)
 {
-	t_result result = {"Pointer Format", 0, 0};
+	t_result result = {"Hexadec format", 0, 0};
 
 	t_testcase tests[] = {
+		{"hex int with space + width", "%# 20x", 1239},
+		{"hex int with plus + width", "%#+20x", 1239},
+		{"hex int with space + width", "%#- 20x", 1239},
+		{"hex int with plus + width", "%#-+20x", 1239},
+		{"Pointer with space + width", "%#020x", 1239},
+		{"Pointer with plus + width", "%#+020x", 1239},
+		{"Pointer with space + width", "%#-020x", 1239},
+		{"Pointer with plus + width", "%#-+020x", 1239},
 		{"Basic lowercase hex", "[%x]", 255},
 		{"Basic uppercase hex", "[%X]", 255},
 		{"Zero value", "[%x]", 0},

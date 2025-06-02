@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 22:33:10 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/01 16:43:29 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/02 16:10:51 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,10 @@ char	*ft_utohex_trim(size_t n, int uppercase);
 /**
  * Iternal formatting parameter parsing helper functions for ft_printf().  
  */
-int		parse_fmt_flags(char const *format, t_format *fmt);
-int		parse_fmt_width(char const *format, t_format *fmt);
-int		parse_fmt_precision(char const *format, t_format *fmt);
-int		parse_fmt_conversion(char const *format, t_format *fmt);
+int		parse_formatting_string(char const *format, t_format *fmt);
+// int		parse_fmt_flags(char const *format, t_format *fmt);
+// int		parse_fmt_width(char const *format, t_format *fmt);
+// int		parse_fmt_precision(char const *format, t_format *fmt);
+// int		parse_fmt_conversion(char const *format, t_format *fmt);
 
 #endif

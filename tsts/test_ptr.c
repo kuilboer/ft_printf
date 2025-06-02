@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/25 13:58:00 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/01 16:39:46 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/02 16:01:35 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,13 @@ t_result run_ptr_format_tests(void)
 		{"Precision ignored", "%.5p", "precise"},
 		{"Zero-padding ignored", "%020p", "zpad"},
 		{"Pointer with space + width", "% 20p", "test"},
+		{"Pointer with plus + width", "%+20p", "test"},
+		{"Pointer with space + width", "%- 20p", "test"},
+		{"Pointer with plus + width", "%-+20p", "test"},
+		{"Pointer with space + width", "%020p", "test"},
+		{"Pointer with plus + width", "%+020p", "test"},
+		{"Pointer with space + width", "%-020p", "test"},
+		{"Pointer with plus + width", "%-+020p", "test"},
 		{"Pointer with left align", "%-20p", "test"},
 		{"Pointer with space + left align", "% -20p", "test"},
 		{"NULL pointer with space", "% 20p", NULL},
@@ -82,6 +89,7 @@ t_result run_ptr_format_tests(void)
 	for (int i = 0; tests[i].label; i++)
 	{
 		result.total++;
+		printf("PTR_TEST [%2d] - %s - %s \n", i, tests[i].format, tests[i].label);
 		if (test_ptr_format(tests[i].label, tests[i].format, (void *)tests[i].arg_str))
 			result.passed++;
 	}
