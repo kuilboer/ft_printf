@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/25 13:58:00 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/03 11:57:19 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/03 15:58:18 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ t_result run_int_format_tests(void)
 // };
 
 t_testcase tests[] = {
+
     // %d
     // {"Basic positive", "[%d]", 42},
     // {"Basic negative", "[%d]", -42},
@@ -166,35 +167,37 @@ t_testcase tests[] = {
     // %u
     // {"Basic unsigned", "[%u]", 42},
     // {"Zero unsigned", "[%u]", 0},
-    {"UINT_MAX", "[%u]", 4294967295U},
-    {"Width 5 unsigned", "[%5u]", 42},
-    {"Zero-padding width 5 unsigned", "[%05u]", 42},
-    {"Precision 3 unsigned", "[%.3u]", 42},
-    {"Precision 0 with zero unsigned", "[%.0u]", 0},
-    {"Width 5 precision 3 unsigned", "[%5.3u]", 42},
-    {"Left-align width 5 unsigned", "[%-5u]", 42},
-    {"Space flag ignored on unsigned", "[% u]", 42},
-    {"Plus flag ignored on unsigned", "[%+u]", 42},
-	{"Basic unsigned", "[%u]", 42},
-    {"Zero unsigned", "[%u]", 0},
-    {"UINT_MAX", "[%u]", 4294967295U},
+    // {"UINT_MAX", "[%u]", 4294967295U},
+    // {"Width 5 unsigned", "[%5u]", 42},
+    // {"Zero-padding width 5 unsigned", "[%05u]", 42},
+    // {"Precision 3 unsigned", "[%.3u]", 42},
+    // {"Precision 0 with zero unsigned", "[%.0u]", 0},
+    // {"Width 5 precision 3 unsigned", "[%5.3u]", 42},
+    // {"Left-align width 5 unsigned", "[%-5u]", 42},
+    // {"Space flag ignored on unsigned", "[% u]", 42},
+    // {"Plus flag ignored on unsigned", "[%+u]", 42},
+    // {"Zero unsigned", "[%u]", 0},
+    // {"UINT_MAX", "[%u]", 4294967295U},
 
-    {"Width unsigned", "[%5u]", 42},
-    {"Zero-padding unsigned", "[%05u]", 42},
+    // {"Width unsigned", "[%5u]", 42},
+    // {"Zero-padding unsigned", "[%05u]", 42},
 
-    {"Precision unsigned", "[%.3u]", 42},
-    {"Precision 0 with zero unsigned", "[%.0u]", 0},
-    {"Width + Precision unsigned", "[%5.3u]", 42},
+    // {"Precision unsigned", "[%.3u]", 42},
+    // {"Precision 0 with zero unsigned", "[%.0u]", 0},
+    // {"Width + Precision unsigned", "[%5.3u]", 42},
 
-    {"Left-align unsigned", "[%-5u]", 42},
+    // {"Left-align unsigned", "[%-5u]", 42},
 
-    {"Space flag ignored", "[% u]", 42},
-    {"Plus flag ignored", "[%+u]", 42},
+    // {"Space flag ignored", "[% u]", 42},
+    // {"Plus flag ignored", "[%+u]", 42},
 
-    {"Space + Width unsigned", "[% 5u]", 42}, // Should behave like just width
-    {"Plus + Width unsigned", "[%+5u]", 42},  // Should behave like just width
+    // {"Space + Width unsigned", "[% 5u]", 42}, // Should behave like just width
+    // {"Plus + Width unsigned", "[%+5u]", 42},  // Should behave like just width
 
-    {"Illegal combo %-05u", "[%-05u]", 42},
+    // {"Illegal combo %-05u", "[%-05u]", 42},
+
+	{"Pointer NULL left-aligned", "[%-15p]", (unsigned long)NULL},
+
 	{NULL, NULL, 0}
 };
 

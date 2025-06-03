@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 17:11:20 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/02 21:02:25 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/03 16:02:20 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int	null_input_error(void *ptr, t_format *fmt)
 		if (fmt->flag_minus)
 		{
 			fmt->prt_count += write(1, error, error_len);
+			fmt->prt_count += pad_residual_width(fmt);
 		}
 		else
 		{
