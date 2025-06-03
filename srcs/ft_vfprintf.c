@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 00:00:15 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/02 16:05:37 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/02 23:21:25 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ static const t_convrs_handler	g_convrs_table[] = {
 {'p', fn_handle_pointer_conversion},
 {'x', fn_handle_hexadec_conversion},
 {'X', fn_handle_hexadec_conversion},
+{'i', fn_handle_int_conversion},
+{'d', fn_handle_int_conversion},
+{'u', fn_handle_uint_conversion},
 {'\0', NULL}
 };
 

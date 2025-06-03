@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 22:33:10 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/02 16:10:51 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/02 23:16:36 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_format
 	char			*num_prefix_str;
 	char			*hex_string;
 	size_t			hex_string_len;
-	unsigned int	hex_input_nbr;
+	long long		input_nbr;
 	char			*hex_precise_padding_str;
 	size_t			hex_precise_padding_len;
 	int				hex_upper;
@@ -92,8 +92,11 @@ void	fn_handle_string_conversion(va_list args, t_format *fmt);
 void	fn_handle_character_conversion(va_list args, t_format *fmt);
 void	fn_handle_pointer_conversion(va_list args, t_format *fmt);
 void	fn_handle_hexadec_conversion(va_list args, t_format *fmt);
+void	fn_handle_int_conversion(va_list args, t_format *fmt);
+void	fn_handle_uint_conversion(va_list args, t_format *fmt);
 
 void	format_hex_output_parameters(size_t nbr, t_format *fmt);
+void	format_int_output_parameters(t_format *fmt);
 int		pad_residual_width(t_format *fmt);
 char	*ft_utohex_raw(size_t n, int uppercase);
 char	*ft_utohex_trim(size_t n, int uppercase);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   handle_hex_format.c                                :+:    :+:            */
+/*   handle_int_format.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/29 13:43:33 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/02 21:02:25 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/02 21:46:06 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ static void	format_width_padding(t_format *fmt)
 
 static void	format_calculate_value_output_length(t_format *fmt)
 {
-	if (fmt->num_sign && fmt->conv_spec == 'p')
+	if (fmt->num_sign && fmt->conv_spec != 'u')
 		fmt->chars_to_print += 1;
-	if (fmt->num_prefix_str)
-		fmt->chars_to_print += 2;
 	if (fmt->hex_precise_padding_str)
 		fmt->chars_to_print += fmt->hex_precise_padding_len;
 	fmt->chars_to_print += fmt->hex_string_len;
@@ -51,7 +49,7 @@ static void	format_calculate_value_output_length(t_format *fmt)
 /**
  * @brief Precision padding is handled here.
  */
-static void	format_hex_precision_padding(t_format *fmt)
+static void	format_int_precision_padding(t_format *fmt)
 {
 	size_t	i;
 
@@ -70,21 +68,16 @@ static void	format_hex_precision_padding(t_format *fmt)
 	}
 }
 
-static void	format_hex_signage_and_prefix(t_format *fmt)
+static void	format_int_signage(t_format *fmt)
 {
-	if (fmt->flag_plus && fmt->flag_space)
+	if (fmt->input_nbr < 0)
+		fmt->num_sign = '-';
+	else if (fmt->flag_plus && fmt->flag_space)
 		fmt->num_sign = '+';
 	else if (fmt->flag_plus)
 		fmt->num_sign = '+';
 	else if (fmt->flag_space)
 		fmt->num_sign = ' ';
-	if (fmt->flag_hash && fmt->conv_spec == 'X' && fmt->input_nbr != 0)
-	{
-		fmt->hex_upper = 1;
-		fmt->num_prefix_str = "0X";
-	}
-	else if (fmt->flag_hash && fmt->input_nbr != 0)
-		fmt->num_prefix_str = "0x";
 }
 
 /**
@@ -93,21 +86,11 @@ static void	format_hex_signage_and_prefix(t_format *fmt)
  * @param	nbr unsigned int to be converted to Hexadecimal.
  * @param	fmt read formatting parameters and store formatted output state. 
  */
-void	format_hex_output_parameters(size_t nbr, t_format *fmt)
+void	format_int_output_parameters(t_format *fmt)
 {
-	if (!(nbr == 0 && fmt->precision))
-	{
-		if (fmt->conv_spec == 'p')
-			fmt->hex_string = ft_utohex_trim((size_t)nbr, fmt->hex_upper);
-		else
-			fmt->hex_string = ft_utohex_trim((unsigned int)nbr, fmt->hex_upper);
-		fmt->hex_string_len = ft_strlen(fmt->hex_string);
-	}
-	else
-		fmt->hex_string_len = 0;
-	fmt->input_nbr = nbr;
-	format_hex_signage_and_prefix(fmt);
-	format_hex_precision_padding(fmt);
+	if (fmt->conv_spec != 'u')
+		format_int_signage(fmt);
+	format_int_precision_padding(fmt);
 	format_calculate_value_output_length(fmt);
 	format_width_padding(fmt);
 	return ;

@@ -18,16 +18,20 @@ LDFLAGS 	:=
 SRCS = \
 	ft_printf.c   		\
 	ft_vfprintf.c		\
-	ft_tohex.c		\
-	handle_txt.c	\
+	ft_tohex.c			\
+	handle_txt.c		\
 	handler_utils.c		\
 	handle_hex.c		\
-	handle_hex_format.c 	\
+	handle_hex_format.c \
+	handle_int.c		\
+	handle_int_format.c	\
 	fmt_parser.c		\
 	libft/ft_strlen.c	\
 	libft/ft_strlcpy.c	\
 	libft/ft_strdup.c	\
 	libft/ft_isdigit.c	\
+	libft/ft_itoa.c		\
+	libft/ft_utoa.c
 
 
 OBJS = $(SRCS:.c=.o)
