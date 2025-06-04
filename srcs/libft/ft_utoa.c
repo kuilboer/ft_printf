@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/03 12:58:40 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/03 13:29:54 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/03 16:13:54 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ char	*ft_utoa(unsigned int n)
 	digits[len] = '\0';
 	while (len > 0)
 	{
-		digits[--len] = '0' + (n % 10); 
+		digits[--len] = '0' + (n % 10);
+		n /= 10;
 	}
 	return (digits);
 }

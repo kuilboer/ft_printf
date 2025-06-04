@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/25 13:58:00 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/03 15:58:18 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/03 16:07:04 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,9 @@ t_testcase tests[] = {
     // {"Plus + Width unsigned", "[%+5u]", 42},  // Should behave like just width
 
     // {"Illegal combo %-05u", "[%-05u]", 42},
+
+	{"Unsigned basic positive", "%u", 1024u},
+    {"Unsigned negative cast", "%u", (unsigned int)-1024},
 
 	{"Pointer NULL left-aligned", "[%-15p]", (unsigned long)NULL},
 

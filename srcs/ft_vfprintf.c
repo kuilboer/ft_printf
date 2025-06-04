@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 00:00:15 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/02 23:21:25 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/04 10:49:21 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static const t_convrs_handler	g_convrs_table[] = {
 {'i', fn_handle_int_conversion},
 {'d', fn_handle_int_conversion},
 {'u', fn_handle_uint_conversion},
+{'%', fn_handle_character_conversion},
 {'\0', NULL}
 };
 
@@ -66,6 +67,8 @@ static int	run_conversion_handler(va_list args, \
 	return (fmt->prt_count);
 }
 
+
+
 /* 
 vfprintf implements the heavy lifting for printf() it finds the regular chars
 from string 'format'. end writes them to stdout. If it finds a '%' char
@@ -103,9 +106,9 @@ int	ft_vfprintf(char const *format, va_list args)
 	i = 0;
 	while (format && format[i])
 	{
-		if (format[i + 1] && format[i] == '%' && format[i + 1] == '%')
-			i++;
-		else if (format[i] == '%' && format[i + 1])
+		// if (format[i + 1] && format[i] == '%' && format[i + 1] == '%')
+		// 	i++;
+		if (format[i] == '%' && format[i + 1])
 		{
 			i += parse_formatting_string(&format[i], &fmt);
 			prt_count += run_conversion_handler(args, &format[i], &fmt);
@@ -113,8 +116,10 @@ int	ft_vfprintf(char const *format, va_list args)
 		}
 		if (!format[i])
 			break ;
-		prt_count += write(1, &format[i], 1);
-		i++;
+		else if (format[i] != '%')
+		{
+			prt_count += write(1, &format[i++], 1);
+		}
 	}
 	return (prt_count);
 }

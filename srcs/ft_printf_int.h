@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 22:33:10 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/02 23:16:36 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/03 19:18:22 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct s_format
 	size_t			width_padding_len;
 	/// @brief Preformatted padding string with proper char and len.
 	char			*width_padding_str;
+	//brief boolean to track if we are processing substring data or not.
+	int				state_in_substring;
 }	t_format;
 
 /* 
