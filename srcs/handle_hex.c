@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 17:11:20 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/03 16:02:20 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/04 20:15:51 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ static void	write_hexadec_value_left_aligned(t_format *fmt)
 		fmt->prt_count += write(1, &fmt->num_sign, 1);
 	if (fmt->flag_hash && fmt->input_nbr != 0)
 		fmt->prt_count += write(1, fmt->num_prefix_str, 2);
-	if (fmt->hex_precise_padding_str)
-		fmt->prt_count += write(1, fmt->hex_precise_padding_str, \
-			fmt->hex_precise_padding_len);
-	fmt->prt_count += write(1, fmt->hex_string, fmt->hex_string_len);
+	if (fmt->num_precise_padding_str)
+		fmt->prt_count += write(1, fmt->num_precise_padding_str, \
+			fmt->num_precise_padding_len);
+	fmt->prt_count += write(1, fmt->num_string, fmt->num_string_len);
 	fmt->prt_count += write(1, fmt->width_padding_str, \
 		fmt->width_padding_len);
 	return ;
@@ -97,12 +97,12 @@ static void	write_hexadec_value_right_aligned(t_format *fmt)
 			fmt->prt_count += write(1, &fmt->num_sign, 1);
 		if (fmt->flag_hash && fmt->input_nbr != 0)
 			fmt->prt_count += write(1, fmt->num_prefix_str, 2);
-		if (fmt->hex_precise_padding_str && fmt->hex_precise_padding_len)
-			fmt->prt_count += write(1, fmt->hex_precise_padding_str, \
-				fmt->hex_precise_padding_len);
+		if (fmt->num_precise_padding_str && fmt->num_precise_padding_len)
+			fmt->prt_count += write(1, fmt->num_precise_padding_str, \
+				fmt->num_precise_padding_len);
 	}
 	if (!(fmt->precision && fmt->input_nbr == 0))
-		fmt->prt_count += write(1, fmt->hex_string, ft_strlen(fmt->hex_string));
+		fmt->prt_count += write(1, fmt->num_string, ft_strlen(fmt->num_string));
 }
 
 /**

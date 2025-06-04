@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 00:00:15 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/04 19:31:42 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/04 20:15:30 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ static const t_convrs_handler	g_convrs_table[] = {
  */
 static void	free_and_initialize_format_stuct(t_format *fmt)
 {
-	if (fmt->hex_string)
-		free(fmt->hex_string);
-	if (fmt->hex_precise_padding_str)
-		free(fmt->hex_precise_padding_str);
+	if (fmt->num_string)
+		free(fmt->num_string);
+	if (fmt->num_precise_padding_str)
+		free(fmt->num_precise_padding_str);
 	if (fmt->width_padding_str)
 		free(fmt->width_padding_str);
 	*fmt = (t_format){0};

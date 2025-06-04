@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/20 22:33:10 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/03 19:18:22 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/04 20:15:51 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ typedef struct s_format
 	size_t			prt_count;
 	size_t			read_index;
 	char			*num_prefix_str;
-	char			*hex_string;
-	size_t			hex_string_len;
+	char			*num_string;
+	size_t			num_string_len;
 	long long		input_nbr;
-	char			*hex_precise_padding_str;
-	size_t			hex_precise_padding_len;
+	char			*num_precise_padding_str;
+	size_t			num_precise_padding_len;
 	int				hex_upper;
 	char			num_sign;
 	/// @brief calculated number of characters to print before width-padding.

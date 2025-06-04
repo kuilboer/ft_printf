@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/29 13:43:33 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/04 19:40:21 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/04 20:15:51 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static void	format_calculate_value_output_length(t_format *fmt)
 {
 	if (fmt->num_sign && fmt->conv_spec != 'u')
 		fmt->chars_to_print += 1;
-	if (fmt->hex_precise_padding_str)
-		fmt->chars_to_print += fmt->hex_precise_padding_len;
-	fmt->chars_to_print += fmt->hex_string_len;
+	if (fmt->num_precise_padding_str)
+		fmt->chars_to_print += fmt->num_precise_padding_len;
+	fmt->chars_to_print += fmt->num_string_len;
 	if (fmt->width && fmt->width > fmt->chars_to_print)
 		fmt->width_padding_len = fmt->width - fmt->chars_to_print;
 	return ;
@@ -53,17 +53,17 @@ static void	format_int_precision_padding(t_format *fmt)
 {
 	size_t	i;
 
-	if (fmt->precision && (fmt->precision_len > fmt->hex_string_len))
+	if (fmt->precision && (fmt->precision_len > fmt->num_string_len))
 	{
-		fmt->hex_precise_padding_len = fmt->precision_len - fmt->hex_string_len;
-		fmt->hex_precise_padding_str = \
-			malloc(sizeof(char) * fmt->hex_precise_padding_len + 1);
-		if (!fmt->hex_precise_padding_str)
+		fmt->num_precise_padding_len = fmt->precision_len - fmt->num_string_len;
+		fmt->num_precise_padding_str = \
+			malloc(sizeof(char) * fmt->num_precise_padding_len + 1);
+		if (!fmt->num_precise_padding_str)
 			return ;
 		i = 0;
-		while (i < (fmt->hex_precise_padding_len))
-			fmt->hex_precise_padding_str[i++] = '0';
-		fmt->hex_precise_padding_str[i] = '\0';
+		while (i < (fmt->num_precise_padding_len))
+			fmt->num_precise_padding_str[i++] = '0';
+		fmt->num_precise_padding_str[i] = '\0';
 		return ;
 	}
 }
