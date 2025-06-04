@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 00:00:15 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/04 10:49:21 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/04 19:31:42 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@ static const t_convrs_handler	g_convrs_table[] = {
 {'%', fn_handle_character_conversion},
 {'\0', NULL}
 };
-
-// {'d', fn_dgt},
-// {'i', fn_int},
-// {'u', fn_uns},
 
 /**
  * @brief Manage initialization and freeing of formatting state struct variables
@@ -67,8 +63,6 @@ static int	run_conversion_handler(va_list args, \
 	return (fmt->prt_count);
 }
 
-
-
 /* 
 vfprintf implements the heavy lifting for printf() it finds the regular chars
 from string 'format'. end writes them to stdout. If it finds a '%' char
@@ -106,8 +100,6 @@ int	ft_vfprintf(char const *format, va_list args)
 	i = 0;
 	while (format && format[i])
 	{
-		// if (format[i + 1] && format[i] == '%' && format[i + 1] == '%')
-		// 	i++;
 		if (format[i] == '%' && format[i + 1])
 		{
 			i += parse_formatting_string(&format[i], &fmt);

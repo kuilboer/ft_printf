@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 17:29:47 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/02 23:47:59 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/04 19:39:54 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static void	write_integer_value_left_aligned(t_format *fmt)
 {
-	if (fmt->num_sign && fmt->conv_spec != 'u' && fmt->input_nbr !=INT_MIN)
+	if (fmt->num_sign && fmt->conv_spec != 'u' && fmt->input_nbr != INT_MIN)
 		fmt->prt_count += write(1, &fmt->num_sign, 1);
 	if (fmt->hex_precise_padding_str)
 		fmt->prt_count += write(1, fmt->hex_precise_padding_str, \
@@ -42,7 +42,7 @@ static void	write_integer_value_right_aligned(t_format *fmt)
 {
 	if (fmt->width_padding_len && fmt->width_padding_chr == '0')
 	{
-		if (fmt->num_sign && fmt->conv_spec != 'u' && fmt->input_nbr !=INT_MIN)
+		if (fmt->num_sign && fmt->conv_spec != 'u' && fmt->input_nbr != INT_MIN)
 			fmt->prt_count += write(1, &fmt->num_sign, 1);
 		if (fmt->width_padding_len)
 			fmt->prt_count += write(1, fmt->width_padding_str, \
@@ -52,7 +52,7 @@ static void	write_integer_value_right_aligned(t_format *fmt)
 	{
 		fmt->prt_count += write(1, fmt->width_padding_str, \
 			fmt->width_padding_len);
-		if (fmt->num_sign && fmt->conv_spec != 'u' && fmt->input_nbr !=INT_MIN)
+		if (fmt->num_sign && fmt->conv_spec != 'u' && fmt->input_nbr != INT_MIN)
 			fmt->prt_count += write(1, &fmt->num_sign, 1);
 		if (fmt->hex_precise_padding_str && fmt->hex_precise_padding_len)
 			fmt->prt_count += write(1, fmt->hex_precise_padding_str, \
@@ -71,11 +71,11 @@ static void	write_integer_value_right_aligned(t_format *fmt)
 void	fn_handle_int_conversion(va_list args, t_format *fmt)
 {
 	long	nbr;
-	
+
 	nbr = va_arg(args, int);
 	fmt->input_nbr = nbr;
 	if (!(nbr == 0 && fmt->precision))
-	{	
+	{
 		if (nbr < 0)
 			nbr *= -1;
 		fmt->hex_string = ft_itoa((int)nbr);
@@ -100,7 +100,7 @@ void	fn_handle_int_conversion(va_list args, t_format *fmt)
 void	fn_handle_uint_conversion(va_list args, t_format *fmt)
 {
 	unsigned int	nbr;
-	
+
 	nbr = va_arg(args, unsigned int);
 	fmt->input_nbr = nbr;
 	if (!(nbr == 0 && fmt->precision))

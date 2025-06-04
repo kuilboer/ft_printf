@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/02 12:07:07 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/04 17:04:45 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/04 19:36:10 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 static int	null_input_error(char *str, t_format *fmt)
 {
 	char	*error;
-	size_t		error_len;
-	
+	size_t	error_len;
+
 	if (!str)
 	{
 		if (fmt->precision && fmt->precision_len < 6)
@@ -72,6 +72,7 @@ void	fn_handle_string_conversion(va_list args, t_format *fmt)
 	}
 	return ;
 }
+
 static void	write_percent_character(char c, t_format *fmt)
 {
 	fmt->chars_to_print = 1;
@@ -80,11 +81,9 @@ static void	write_percent_character(char c, t_format *fmt)
 	if (fmt->flag_minus)
 	{
 		fmt->prt_count += write(1, &c, fmt->chars_to_print);
-		//fmt->prt_count += pad_residual_width(fmt);
 	}
 	else
 	{
-		//fmt->prt_count += pad_residual_width(fmt);
 		fmt->prt_count += write(1, &c, fmt->chars_to_print);
 	}
 }
@@ -97,6 +96,7 @@ static void	write_percent_character(char c, t_format *fmt)
 void	fn_handle_character_conversion(va_list args, t_format *fmt)
 {
 	char	c;
+
 	if (fmt->conv_spec == '%')
 	{
 		c = '%';

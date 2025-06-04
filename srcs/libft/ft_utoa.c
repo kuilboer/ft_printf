@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/06/03 12:58:40 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/03 16:13:54 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/04 19:41:38 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  */
 static int	digit_count(unsigned int n)
 {
-	size_t i;
+	size_t	i;
 
 	i = 1;
 	while (n >= 10)
