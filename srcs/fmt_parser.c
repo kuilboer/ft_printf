@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/26 15:50:25 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/03 19:25:27 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/09 18:52:37 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	parse_fmt_conversion(char const *format, t_format *fmt)
 	size_t	i;
 
 	i = 0;
+	if (!*format)
+		return (0);
 	fmt->conv_spec = *format;
 	if (fmt->conv_spec == 'X')
 		fmt->hex_upper = 1;

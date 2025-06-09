@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/25 13:58:00 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/03 16:07:04 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/09 10:50:02 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,82 +123,80 @@ t_result run_int_format_tests(void)
 // };
 
 t_testcase tests[] = {
-
     // %d
-    // {"Basic positive", "[%d]", 42},
-    // {"Basic negative", "[%d]", -42},
-    // {"Zero", "[%d]", 0},
-    // {"INT_MAX", "[%d]", 2147483647},
-    // {"INT_MIN", "[%d]", -2147483648},
+    {"Basic positive", "[%d]", 42},
+    {"Basic negative", "[%d]", -42},
+    {"Zero", "[%d]", 0},
+    {"INT_MAX", "[%d]", 2147483647},
+    {"INT_MIN", "[%d]", -2147483648},
 
-    // {"Width", "[%5d]", 42},
-    // {"Width negative", "[%5d]", -42},
-    // {"Zero-padding", "[%05d]", 42},
-    // {"Zero-padding negative", "[%05d]", -42},
+    {"Width", "[%5d]", 42},
+    {"Width negative", "[%5d]", -42},
+    {"Zero-padding", "[%05d]", 42},
+    {"Zero-padding negative", "[%05d]", -42},
 
-    // {"Precision", "[%.3d]", 42},
-    // {"Precision negative", "[%.3d]", -42},
-    // {"Precision 0 with zero", "[%.0d]", 0},
-    // {"Width + Precision", "[%5.3d]", 42},
-    // {"Width + Precision negative", "[%5.3d]", -42},
+    {"Precision", "[%.3d]", 42},
+    {"Precision negative", "[%.3d]", -42},
+    {"Precision 0 with zero", "[%.0d]", 0},
+    {"Width + Precision", "[%5.3d]", 42},
+    {"Width + Precision negative", "[%5.3d]", -42},
 
-    // {"Left-align", "[%-5d]", 42},
-    // {"Left-align negative", "[%-5d]", -42},
+    {"Left-align", "[%-5d]", 42},
+    {"Left-align negative", "[%-5d]", -42},
 
-    // {"Space", "[% d]", 42},
-    // {"Space negative", "[% d]", -42},
+    {"Space", "[% d]", 42},
+    {"Space negative", "[% d]", -42},
 
-    // {"Plus", "[%+d]", 42},
-    // {"Plus negative", "[%+d]", -42},
+    {"Plus", "[%+d]", 42},
+    {"Plus negative", "[%+d]", -42},
 
-    // {"Space + Width", "[% 5d]", 42},
-    // {"Plus + Width", "[%+5d]", 42},
-    // {"Plus + Zero-padding", "[%+05d]", 42},
+    {"Space + Width", "[% 5d]", 42},
+    {"Plus + Width", "[%+5d]", 42},
+    {"Plus + Zero-padding", "[%+05d]", 42},
 
-    // {"Illegal combo %-05d", "[%-05d]", 42},
+    {"Illegal combo %-05d", "[%-05d]", 42},
 
-    // // %i — same as %d
-    // {"Basic positive i", "[%i]", 42},
-    // {"Basic negative i", "[%i]", -42},
-    // {"Zero i", "[%i]", 0},
-    // {"INT_MAX i", "[%i]", 2147483647},
-    // {"INT_MIN i", "[%i]", -2147483648},
-
+    // %i — same as %d
+    {"Basic positive i", "[%i]", 42},
+    {"Basic negative i", "[%i]", -42},
+    {"Zero i", "[%i]", 0},
+    {"INT_MAX i", "[%i]", 2147483647},
+    {"INT_MIN i", "[%i]", -2147483648},
     // %u
-    // {"Basic unsigned", "[%u]", 42},
-    // {"Zero unsigned", "[%u]", 0},
-    // {"UINT_MAX", "[%u]", 4294967295U},
-    // {"Width 5 unsigned", "[%5u]", 42},
-    // {"Zero-padding width 5 unsigned", "[%05u]", 42},
-    // {"Precision 3 unsigned", "[%.3u]", 42},
-    // {"Precision 0 with zero unsigned", "[%.0u]", 0},
-    // {"Width 5 precision 3 unsigned", "[%5.3u]", 42},
-    // {"Left-align width 5 unsigned", "[%-5u]", 42},
-    // {"Space flag ignored on unsigned", "[% u]", 42},
-    // {"Plus flag ignored on unsigned", "[%+u]", 42},
-    // {"Zero unsigned", "[%u]", 0},
-    // {"UINT_MAX", "[%u]", 4294967295U},
+    {"Basic unsigned", "[%u]", 42},
+    {"Zero unsigned", "[%u]", 0},
+    {"UINT_MAX", "[%u]", 4294967295U},
+    {"Width 5 unsigned", "[%5u]", 42},
+    {"Zero-padding width 5 unsigned", "[%05u]", 42},
+    {"Precision 3 unsigned", "[%.3u]", 42},
+    {"Precision 0 with zero unsigned", "[%.0u]", 0},
+    {"Width 5 precision 3 unsigned", "[%5.3u]", 42},
+    {"Left-align width 5 unsigned", "[%-5u]", 42},
+    {"Space flag ignored on unsigned", "[% u]", 42},
+    {"Plus flag ignored on unsigned", "[%+u]", 42},
+    {"Zero unsigned", "[%u]", 0},
+    {"UINT_MAX", "[%u]", 4294967295U},
 
-    // {"Width unsigned", "[%5u]", 42},
-    // {"Zero-padding unsigned", "[%05u]", 42},
+    {"Width unsigned", "[%5u]", 42},
+    {"Zero-padding unsigned", "[%05u]", 42},
 
-    // {"Precision unsigned", "[%.3u]", 42},
-    // {"Precision 0 with zero unsigned", "[%.0u]", 0},
-    // {"Width + Precision unsigned", "[%5.3u]", 42},
+    {"Precision unsigned", "[%.3u]", 42},
+    {"Precision 0 with zero unsigned", "[%.0u]", 0},
+    {"Width + Precision unsigned", "[%5.3u]", 42},
 
-    // {"Left-align unsigned", "[%-5u]", 42},
+    {"Left-align unsigned", "[%-5u]", 42},
 
-    // {"Space flag ignored", "[% u]", 42},
-    // {"Plus flag ignored", "[%+u]", 42},
+    {"Space flag ignored", "[% u]", 42},
+    {"Plus flag ignored", "[%+u]", 42},
 
-    // {"Space + Width unsigned", "[% 5u]", 42}, // Should behave like just width
-    // {"Plus + Width unsigned", "[%+5u]", 42},  // Should behave like just width
+    {"Space + Width unsigned", "[% 5u]", 42}, // Should behave like just width
+    {"Plus + Width unsigned", "[%+5u]", 42},  // Should behave like just width
 
-    // {"Illegal combo %-05u", "[%-05u]", 42},
+    {"Illegal combo %-05u", "[%-05u]", 42},
 
 	{"Unsigned basic positive", "%u", 1024u},
     {"Unsigned negative cast", "%u", (unsigned int)-1024},
-
+    // %p
 	{"Pointer NULL left-aligned", "[%-15p]", (unsigned long)NULL},
 
 	{NULL, NULL, 0}

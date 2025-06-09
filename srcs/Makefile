@@ -9,7 +9,7 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 # ==== COMPILER ====
 
 CC 			:= cc
-CFLAGS		:= -Wall -Werror -Wextra
+CFLAGS		:= -Wall -Werror -Wextra -g #-fsanitize=address
 CPPFLAGS	:= -I. -Ilibft
 LDFLAGS 	:= 
 
@@ -38,7 +38,7 @@ OBJS = $(SRCS:.c=.o)
 
 .PHONY: all lib clean fclean re rmlib relib
 
-bonus: re
+bonus: all
 
 all: lib $(NAME)
 

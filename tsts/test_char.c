@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/25 13:58:00 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/01 16:39:46 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/09 18:29:43 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_result run_char_format_tests(void)
 	t_result result = {"Char Format", 0, 0};
 
 	t_testcase tests[] = {
+		{"Erroneous format string input 3 x percent", "%%%", NULL, 0},
 		{"Plain string", "This is a conversion-less string.", NULL, 0},
 		{"Single percent", "This string will output a single %% sign.", NULL, 0},
 		{"Simple char", "%c", NULL, 'A'},
@@ -64,6 +65,9 @@ t_result run_char_format_tests(void)
 		{"Double chars", "%c %c", NULL, 'Y'},
 		{NULL, NULL, NULL, 0}
 	};
+
+	// std_ret =	printf("2): %%%\n");
+	// ft_ret = ft_printf("2): %%%\n");
 
 	for (int i = 0; tests[i].label; i++)
 	{

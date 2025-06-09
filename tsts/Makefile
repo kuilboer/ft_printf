@@ -6,7 +6,7 @@
 #    By: okuilboe <okuilboe@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2025/04/25 16:17:43 by okuilboe      #+#    #+#                  #
-#    Updated: 2025/05/26 12:41:43 by okuilboe      ########   odam.nl          #
+#    Updated: 2025/06/09 18:25:50 by okuilboe      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LIB_LNK_TGT	:= $(CURDIR)/ft_printf
 LIBRARY		= $(LIB_LNK_TGT)/libftprintf.a
 
 CC 			:= cc
-CFLAGS		:= -Wall -Werror -Wextra -g -O0
+CFLAGS		:= -g -O0 #-Wall -Werror -Wextra
 CPPFLAGS	:= -I. -Ift_printf -Ift_printf/libft
 LDFLAGS 	:= -Lft_printf -lftprintf -Lft_printf/libft -lft
 

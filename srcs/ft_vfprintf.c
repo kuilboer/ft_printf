@@ -6,7 +6,7 @@
 /*   By: okuilboe <okuilboe@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2025/05/22 00:00:15 by okuilboe      #+#    #+#                 */
-/*   Updated: 2025/06/04 20:15:30 by okuilboe      ########   odam.nl         */
+/*   Updated: 2025/06/09 18:53:55 by okuilboe      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	ft_vfprintf(char const *format, va_list args)
 	i = 0;
 	while (format && format[i])
 	{
-		if (format[i] == '%' && format[i + 1])
+		if (format[i] == '%' )//&& format[i + 1])
 		{
 			i += parse_formatting_string(&format[i], &fmt);
 			prt_count += run_conversion_handler(args, &format[i], &fmt);
